@@ -1,7 +1,7 @@
-URLS P1:
+URLS P1 :
 https://gitlab.etsit.urjc.es/brosaa/P1
 https://gitlab.etsit.urjc.es/ja.ortega.2017/P1
 
-URLS P2:
+URLS P2 :
 https://gitlab.etsit.urjc.es/brosaa/P2
 https://gitlab.etsit.urjc.es/ja.ortega.2017/P2
