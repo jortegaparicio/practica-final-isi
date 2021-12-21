@@ -40,7 +40,7 @@ public class Alumno {
 				&& Objects.equals(usuario_git, other.usuario_git);
 	}
 
-    @Override
+    @Override 
 	public int hashCode() {
 		return Objects.hash(dni, nombre, usuario_git);
 	}

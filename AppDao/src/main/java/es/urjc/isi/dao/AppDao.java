@@ -40,8 +40,8 @@ public class AppDao {
         } catch (Exception e) {
         	throw new RuntimeException(e);
         }
-    }
-
+    }    
+    
     @SuppressWarnings("finally")
 	public List<Alumno> allAlumnos() {
 
@@ -89,7 +89,6 @@ public class AppDao {
     	} finally {
     		return allPracticas;
     	}
-
     }
     
     public void save(Alumno al) {
@@ -126,5 +125,35 @@ public class AppDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    @SuppressWarnings("finally")
+	public List<String> filteredUrls(String nombre_practica){
+    	
+    	List<String> filtered_urls = new ArrayList<String>();
+    	
+    	try {
+    		PreparedStatement ps = c.prepareStatement("select url from practicas where nombre = '" + nombre_practica + "'");
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                String url = rs.getString("url");  
+                filtered_urls.add(url);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            return filtered_urls;
+        }    
+    }
+    
+    public static void main(String args[]) {
+   	 
+    	AppDao dao = new AppDao();
+        String nombre_practica = "P1";
+        List<String> urls_filtradas = dao.filteredUrls(nombre_practica);
+
+        System.out.println(urls_filtradas.toString());
     }
 }
