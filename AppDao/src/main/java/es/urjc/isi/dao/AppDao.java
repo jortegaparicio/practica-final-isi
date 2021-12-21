@@ -93,6 +93,30 @@ public class AppDao {
     	}
     }
     
+    @SuppressWarnings("finally")
+    public List<Resultado> allResultados() {
+
+    	List<Resultado> allResultados = new ArrayList<Resultado>();
+
+    	try {
+    		PreparedStatement ps = c.prepareStatement("select * from resultados");
+
+    		ResultSet rs = ps.executeQuery();
+
+    		while(rs.next()) {
+    			String url1 = rs.getString("url1");
+    			String url2 = rs.getString("url2");
+    			String contenido = rs.getString("contenido");
+    			allResultados.add(new Resultado(url1, url2, contenido));
+    		}
+
+    	} catch (SQLException e) {
+    		throw new RuntimeException(e);
+    	} finally {
+    		return allResultados;
+    	}
+    }
+    
     public void save(Alumno al) {
         try {
             PreparedStatement ps = c.prepareStatement("insert into alumnos (dni, nombre, usuario_Git) values (?,?,?)");
@@ -121,6 +145,20 @@ public class AppDao {
         }
     }
     
+    public void save(Resultado res) {
+        try {
+            PreparedStatement ps = c.prepareStatement("insert into resultado (url1, url2, contenido) values (?,?,?)");
+            ps.setString(1, res.getUrl1());
+            ps.setString(2, res.getUrl2());
+            ps.setString(3, res.getContenido());	
+            ps.execute();
+
+            c.commit();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
     public void close() {
         try {
             c.close();
@@ -128,7 +166,6 @@ public class AppDao {
             throw new RuntimeException(e);
         }
     }
-    
     
     @SuppressWarnings("finally")
 	public List<String> filteredUrls(String nombre_practica){
@@ -177,7 +214,7 @@ public class AppDao {
     	AppDao dao = new AppDao();
         String nombre_practica = "P1";
         List<String> urls_filtradas = dao.filteredUrls(nombre_practica);
-
+ 
         System.out.println(urls_filtradas.toString());
         
         List<String> nombresDePracticas = dao.practiceNames();
