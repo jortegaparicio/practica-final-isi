@@ -209,7 +209,7 @@ public class AppDao {
         }    
     }
     
-    public static void main(String args[]) {
+   /* public static void main(String args[]) {
    	 
     	AppDao dao = new AppDao();
         String nombre_practica = "P1";
@@ -219,5 +219,5 @@ public class AppDao {
         
         List<String> nombresDePracticas = dao.practiceNames();
         System.out.println(nombresDePracticas.toString());
-    }
+    }*/
 }
