@@ -18,9 +18,11 @@ public class AppDao {
 
             c.prepareStatement("drop table if exists alumnos").execute();
             c.prepareStatement("drop table if exists practicas").execute();
+            c.prepareStatement("drop table if exists resultados").execute();
             
-            c.prepareStatement("create table alumnos (dni varchar(10), nombre varchar(30), usuario_Git varchar(30))").execute();
-            c.prepareStatement("create table practicas (dni varchar(10), nombre varchar(70), url varchar(80))").execute();
+            c.prepareStatement("create table alumnos (dni varchar(10) not null, nombre varchar(30) not null, usuario_Git varchar(30) not null, primary key(dni))").execute();
+            c.prepareStatement("create table practicas (dni varchar(10) not null, nombre varchar(70) not null, url varchar(80) not null, primary key(url), foreign key (dni) references Alumnos(dni))").execute();
+            c.prepareStatement("create table resultados (url1 varchar(80), url2 varchar(80), text, primary key(url1, url2))").execute();
             
             c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Paco Fernandez','pacfer');").execute();
             c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','María Perez','mariaperez');").execute();
@@ -31,8 +33,8 @@ public class AppDao {
             c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P1','http://gitlab.com/pacfer/P1');").execute();
             c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P2','http://gitlab.com/pacfer/P2');").execute();
             c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P1','http://gitlab.com/mariaperez/P1');").execute();
-            c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P3','http://gitlab.com/mariaperez/P3');").execute();
-            
+            c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P3','http://gitlab.com/mariaperez/P3');").execute();  
+                  
             c.commit();
 
         } catch (SQLException e) {
@@ -127,6 +129,7 @@ public class AppDao {
         }
     }
     
+    
     @SuppressWarnings("finally")
 	public List<String> filteredUrls(String nombre_practica){
     	
@@ -148,6 +151,27 @@ public class AppDao {
         }    
     }
     
+    @SuppressWarnings("finally")
+	public List<String> practiceNames(){
+    	
+    	List<String> names = new ArrayList<String>();
+    	
+    	try {
+    		PreparedStatement ps = c.prepareStatement("select nombre from practicas group by nombre");
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                String nombre = rs.getString("nombre");  
+                names.add(nombre);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            return names;
+        }    
+    }
+    
     public static void main(String args[]) {
    	 
     	AppDao dao = new AppDao();
@@ -155,5 +179,8 @@ public class AppDao {
         List<String> urls_filtradas = dao.filteredUrls(nombre_practica);
 
         System.out.println(urls_filtradas.toString());
+        
+        List<String> nombresDePracticas = dao.practiceNames();
+        System.out.println(nombresDePracticas.toString());
     }
 }
