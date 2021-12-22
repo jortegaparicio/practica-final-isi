@@ -1,6 +1,6 @@
 
 .open database.db
-PRAGMA foreign_keys= ON;
+PRAGMA foreign_keys = ON;
 
 DROP TABLE IF EXISTS Practicas;
 DROP TABLE IF EXISTS Alumnos;
