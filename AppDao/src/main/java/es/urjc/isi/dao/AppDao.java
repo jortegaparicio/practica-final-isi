@@ -11,38 +11,47 @@ public class AppDao {
     public AppDao() {
         try {
             if(c!=null) return;
-            
-            //Class.forName("org.sqlite.JDBC");
+           
             c = DriverManager.getConnection("jdbc:sqlite:database.db");
             c.setAutoCommit(false);
-
-            c.prepareStatement("drop table if exists alumnos").execute();
-            c.prepareStatement("drop table if exists practicas").execute();
-            c.prepareStatement("drop table if exists resultados").execute();
-            
-            c.prepareStatement("create table alumnos (dni varchar(10) not null, nombre varchar(30) not null, usuario_Git varchar(30) not null, primary key(dni))").execute();
-            c.prepareStatement("create table practicas (dni varchar(10) not null, nombre varchar(70) not null, url varchar(80) not null, primary key(url), foreign key (dni) references Alumnos(dni))").execute();
-            c.prepareStatement("create table resultados (url1 varchar(80), url2 varchar(80), text, primary key(url1, url2))").execute();
-            
-            c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Paco Fernandez','pacfer');").execute();
-            c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','María Perez','mariaperez');").execute();
-            c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('95639423Y','Laura Gonzalez','lauGon');").execute();
-            
-            c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('95639423Y','P1','http://gitlab.com/laugon/P1');").execute();
-            c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('95639423Y','P2','http://gitlab.com/laugon/P2');").execute();
-            c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P1','http://gitlab.com/pacfer/P1');").execute();
-            c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P2','http://gitlab.com/pacfer/P2');").execute();
-            c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P1','http://gitlab.com/mariaperez/P1');").execute();
-            c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P3','http://gitlab.com/mariaperez/P3');").execute();  
-                  
-            c.commit();
-
+         
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
         	throw new RuntimeException(e);
         }
     }    
+    
+    public void resetDatabase() {
+        
+    	try {
+	        c.setAutoCommit(false);
+	
+	        c.prepareStatement("drop table if exists alumnos").execute();
+	        c.prepareStatement("drop table if exists practicas").execute();
+	        c.prepareStatement("drop table if exists resultados").execute();
+	        
+	        c.prepareStatement("create table alumnos (dni varchar(10) not null, nombre varchar(30) not null, usuario_Git varchar(30) not null, primary key(dni))").execute();
+	        c.prepareStatement("create table practicas (dni varchar(10) not null, nombre varchar(70) not null, url varchar(80) not null, primary key(url), foreign key (dni) references Alumnos(dni))").execute();
+	        c.prepareStatement("create table resultados (url1 varchar(80), url2 varchar(80), text, primary key(url1, url2))").execute();
+	        
+	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Paco Fernandez','pacfer');").execute();
+	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','María Perez','mariaperez');").execute();
+	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('95639423Y','Laura Gonzalez','lauGon');").execute();
+	        
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('95639423Y','P1','http://gitlab.com/laugon/P1');").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('95639423Y','P2','http://gitlab.com/laugon/P2');").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P1','http://gitlab.com/pacfer/P1');").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P2','http://gitlab.com/pacfer/P2');").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P1','http://gitlab.com/mariaperez/P1');").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P3','http://gitlab.com/mariaperez/P3');").execute();  
+	              
+	        c.commit();
+        
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+	    }
+    }
     
     @SuppressWarnings("finally")
 	public List<Alumno> allAlumnos() {
@@ -117,7 +126,7 @@ public class AppDao {
     	}
     }
     
-    public void save(Alumno al) {
+    public void saveAlumno(Alumno al) {
         try {
             PreparedStatement ps = c.prepareStatement("insert into alumnos (dni, nombre, usuario_Git) values (?,?,?)");
             ps.setString(1, al.getDni());
@@ -131,9 +140,10 @@ public class AppDao {
         }
     }
 
-    public void save(Practica prac) {
+    public void savePractica(Practica prac) {
         try {
-            PreparedStatement ps = c.prepareStatement("insert into alumnos (dni, nombre, usuario_Git) values (?,?,?)");
+            
+            PreparedStatement ps = c.prepareStatement("insert into practicas (dni, nombre, url) values (?,?,?)");
             ps.setString(1, prac.getDni());
             ps.setString(2, prac.getNombre());
             ps.setString(3, prac.getUrl());	
@@ -145,7 +155,7 @@ public class AppDao {
         }
     }
     
-    public void save(Resultado res) {
+    public void saveResultado(Resultado res) {
         try {
             PreparedStatement ps = c.prepareStatement("insert into resultado (url1, url2, contenido) values (?,?,?)");
             ps.setString(1, res.getUrl1());
