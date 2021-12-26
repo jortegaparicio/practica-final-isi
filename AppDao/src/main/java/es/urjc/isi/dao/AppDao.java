@@ -33,7 +33,7 @@ public class AppDao {
 	        
 	        c.prepareStatement("create table alumnos (dni varchar(10) not null, nombre varchar(30) not null, usuario_Git varchar(30) not null, primary key(dni))").execute();
 	        c.prepareStatement("create table practicas (dni varchar(10) not null, nombre varchar(70) not null, url varchar(80) not null, primary key(url), foreign key (dni) references Alumnos(dni))").execute();
-	        c.prepareStatement("create table resultados (url1 varchar(80), url2 varchar(80), text, primary key(url1, url2))").execute();
+	        c.prepareStatement("create table resultados (url1 varchar(80), url2 varchar(80), contenido varchar(200), primary key(url1, url2))").execute();
 	        
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Paco Fernandez','pacfer');").execute();
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','María Perez','mariaperez');").execute();
@@ -157,7 +157,7 @@ public class AppDao {
     
     public void saveResultado(Resultado res) {
         try {
-            PreparedStatement ps = c.prepareStatement("insert into resultado (url1, url2, contenido) values (?,?,?)");
+            PreparedStatement ps = c.prepareStatement("insert into resultados (url1, url2, contenido) values (?,?,?)");
             ps.setString(1, res.getUrl1());
             ps.setString(2, res.getUrl2());
             ps.setString(3, res.getContenido());	
@@ -219,8 +219,7 @@ public class AppDao {
         }    
     }
     
-    
-   /* public static void main(String args[]) {
+    /*public static void main(String args[]) {
    	 
     	AppDao dao = new AppDao();
         String nombre_practica = "P1";
@@ -230,6 +229,6 @@ public class AppDao {
         
         List<String> nombresDePracticas = dao.practiceNames();
         System.out.println(nombresDePracticas.toString());
+	   
     }*/
-    
 }
