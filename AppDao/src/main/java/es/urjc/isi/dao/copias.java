@@ -20,6 +20,8 @@ public class copias {
 		do {
 			System.out.println("Puedes consultar las siguientes prácticas: \n" + disponibles.toString());
 			System.out.println();
+			
+				System.out.println(dao.allAlumnos());
 			System.out.println("Introduce el nombre de la práctica a consultar: ");
 			
 			nombre_practica = sc.nextLine();
@@ -31,7 +33,7 @@ public class copias {
 		
 	    System.out.println(urls_filtradas.toString());
 	    
-
+	    
 		dao.close();
 	}
 }

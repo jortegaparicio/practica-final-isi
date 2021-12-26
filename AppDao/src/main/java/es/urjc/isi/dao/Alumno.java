@@ -44,4 +44,9 @@ public class Alumno {
 	public int hashCode() {
 		return Objects.hash(dni, nombre, usuario_git);
 	}
+
+	@Override
+	public String toString() {
+		return "Alumno [dni=" + dni + ", nombre=" + nombre + ", usuario_git=" + usuario_git + "]";
+	}
 }

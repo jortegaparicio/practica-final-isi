@@ -219,6 +219,7 @@ public class AppDao {
         }    
     }
     
+    
    /* public static void main(String args[]) {
    	 
     	AppDao dao = new AppDao();
@@ -230,4 +231,5 @@ public class AppDao {
         List<String> nombresDePracticas = dao.practiceNames();
         System.out.println(nombresDePracticas.toString());
     }*/
+    
 }
