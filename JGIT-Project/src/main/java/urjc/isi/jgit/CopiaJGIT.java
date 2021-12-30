@@ -37,8 +37,9 @@ public class CopiaJGIT {
        		count++;
        	}
        }
+       int minLines = Math.min(Integer.parseInt(f2_nlines), Integer.parseInt(f1_nlines));
        
-       float porcentCopia = (count*100/Float.parseFloat(f2_nlines));
+       float porcentCopia = (count*100/(float) minLines);
        
        System.out.println("F1 tiene " + f1_nlines + " líneas");
        System.out.println("F2 tiene " + f2_nlines + " líneas");
