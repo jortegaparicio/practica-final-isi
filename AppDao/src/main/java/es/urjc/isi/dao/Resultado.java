@@ -60,4 +60,9 @@ public class Resultado {
 		result = prime * result + ((url2 == null) ? 0 : url2.hashCode());
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return "Resultado [url1=" + url1 + ", url2=" + url2 + ", contenido=" + contenido + "]";
+	}
 }

@@ -42,4 +42,11 @@ public class Practica {
 	public int hashCode() {
 		return Objects.hash(dni, nombre, url);
 	}
+
+	@Override
+	public String toString() {
+		return "Practica [dni=" + dni + ", nombre=" + nombre + ", url=" + url + "]";
+	}
+	
+	
 }
