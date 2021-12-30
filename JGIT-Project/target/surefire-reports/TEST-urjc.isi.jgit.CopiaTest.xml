@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="0" failures="0" name="urjc.isi.jgit.CopiaTest" time="0" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="urjc.isi.jgit.CopiaTest" time="0.003" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="16.0.1+9-24"/>
     <property name="sun.boot.library.path" value="/opt/eclipse/eclipse-ee/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_16.0.1.v20210528-1205/jre/lib"/>
-    <property name="maven.multiModuleProjectDirectory" value="/home/alumnos/jaortega/Escritorio/PFinal-ISI/practica-final/JGIT-Project"/>
+    <property name="maven.multiModuleProjectDirectory" value="/home/alumnos/brosaa/practica-final/JGIT-Project"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="path.separator" value=":"/>
@@ -13,8 +13,8 @@
     <property name="user.country" value="ES"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/home/alumnos/jaortega/Escritorio/PFinal-ISI/practica-final/JGIT-Project"/>
-    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="user.dir" value="/home/alumnos/brosaa/practica-final/JGIT-Project"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="java.runtime.version" value="16.0.1+9-24"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.io.tmpdir" value="/tmp"/>
@@ -22,7 +22,7 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Linux"/>
-    <property name="classworlds.conf" value="/home/alumnos/jaortega/eclipse-workspace/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf10381108221926421471.tmp"/>
+    <property name="classworlds.conf" value="/home/alumnos/brosaa/eclipse-workspace/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf11306199748035404892.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="jdk.debug" value="release"/>
@@ -30,12 +30,12 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="5.4.0-90-generic"/>
-    <property name="user.home" value="/home/alumnos/jaortega"/>
+    <property name="user.home" value="/home/alumnos/brosaa"/>
     <property name="user.timezone" value="Europe/Madrid"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="16"/>
-    <property name="user.name" value="jaortega"/>
-    <property name="java.class.path" value="/opt/eclipse/eclipse-ee/plugins/org.eclipse.m2e.maven.runtime_1.18.0.20210603-1206/jars/plexus-classworlds-2.6.0.jar"/>
+    <property name="user.name" value="brosaa"/>
+    <property name="java.class.path" value="/opt/eclipse/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.18.0.20210603-1206/jars/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="16"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B test"/>
@@ -46,11 +46,12 @@
     <property name="java.version" value="16.0.1"/>
     <property name="securerandom.source" value="file:/dev/./urandom"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="/home/alumnos/jaortega/Escritorio/PFinal-ISI/practica-final/JGIT-Project/EMBEDDED"/>
+    <property name="maven.home" value="/home/alumnos/brosaa/practica-final/JGIT-Project/EMBEDDED"/>
     <property name="file.separator" value="/"/>
     <property name="java.version.date" value="2021-04-20"/>
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.endian" value="little"/>
   </properties>
+  <testcase classname="urjc.isi.jgit.CopiaTest" name="test" time="0.003"/>
 </testsuite>
