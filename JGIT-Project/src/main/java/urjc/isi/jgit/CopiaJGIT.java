@@ -15,18 +15,18 @@ import org.eclipse.jgit.diff.*;
 
 public class CopiaJGIT {
 	
-	private static void hacerGitDiff(String f1, String f2) throws IOException,
+	private static void hacerGitDiff(File f1, File f2) throws IOException,
 	 InvalidRemoteException, TransportException, GitAPIException {
 		OutputStream result = new ByteArrayOutputStream();
 	    try {
-	        RawText rt1 = new RawText(new File(f1));
-	        RawText rt2 = new RawText(new File(f2));
+	        RawText raw1 = new RawText(f1);
+	        RawText raw2 = new RawText(f2);
 	        EditList diffList = new EditList();
 	
-	        diffList.addAll(new HistogramDiff().diff(RawTextComparator.DEFAULT, rt1, rt2));
+	        diffList.addAll(new HistogramDiff().diff(RawTextComparator.DEFAULT, raw1, raw2));
 
 	        DiffFormatter diffForm = new DiffFormatter(result);
-	        diffForm.format(diffList, rt1, rt2);
+	        diffForm.format(diffList, raw1, raw2);
 	        System.out.println(result.toString());
 	        diffForm.close();
 	        
@@ -83,9 +83,9 @@ public class CopiaJGIT {
 		 urls.add("https://gitlab.etsit.urjc.es/brosaa/P1");
 		 urls.add("https://gitlab.etsit.urjc.es/ja.ortega.2017/P1");
 		 
-		 List<String> docs = new ArrayList<String>();
-		 docs.add(clonarepo(urls.get(0))); 
-		 docs.add(clonarepo(urls.get(1)));
+		 List<File> docs = new ArrayList<File>();
+		 docs.add(new File(clonarepo(urls.get(0)))); 
+		 docs.add(new File(clonarepo(urls.get(1))));
 		 
 		 System.out.println(docs);
 
