@@ -13,7 +13,7 @@ import java.util.List;
 import java.io.*;
 import org.eclipse.jgit.diff.*;
 
-public class CopiaJGIT {
+public class Comparador {
 	
 	private static void resultadosCopia(String gitDiffOutput) throws IOException,
 	 InvalidRemoteException, TransportException, GitAPIException {
@@ -50,7 +50,7 @@ public class CopiaJGIT {
        
 	}
 	
-	private static void hacerGitDiff(File f1, File f2) throws IOException,
+	public static void hacerGitDiff(File f1, File f2) throws IOException,
 	 InvalidRemoteException, TransportException, GitAPIException {
 		OutputStream result = new ByteArrayOutputStream();
 		String output = null; 
@@ -130,7 +130,7 @@ public class CopiaJGIT {
         return lines;
     }
 	
-    public static void main(String[] args) throws Exception {
+    /*public static void main(String[] args) throws Exception {
 
 		 List<String> urls = new ArrayList<String>();
 		 urls.add("https://gitlab.etsit.urjc.es/brosaa/P1");
@@ -146,6 +146,6 @@ public class CopiaJGIT {
 
 		 hacerGitDiff(localDocs.get(0), localDocs.get(1));
 		
-    }
+    }*/
 
 }
