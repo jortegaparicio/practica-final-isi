@@ -1,7 +1,6 @@
-/**
- * 
- */
+
 package urjc.isi.jgit;
+
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -130,7 +129,7 @@ public class Comparador {
         return lines;
     }
 	
-    /*public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
 		 List<String> urls = new ArrayList<String>();
 		 urls.add("https://gitlab.etsit.urjc.es/brosaa/P1");
@@ -146,6 +145,7 @@ public class Comparador {
 
 		 hacerGitDiff(localDocs.get(0), localDocs.get(1));
 		
-    }*/
+    }
 
 }
+

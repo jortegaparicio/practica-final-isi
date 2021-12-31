@@ -14,10 +14,10 @@ public class copias {
 		
 		AppDao dao = new AppDao();
 		
-		if (args.length != 0 && args[0].equals("--resetdb")) {
+		if (args.length != 0 && args[0].equals("--resetdb"))
 			dao.resetDatabase();
-		}
-				
+			
+		
 		System.out.println(dao.allAlumnos());
 		
 		List<String> disponibles = dao.practiceNames();
@@ -36,29 +36,29 @@ public class copias {
 		
 		sc.close();
 		List<String> urls_filtradas = dao.filteredUrls(nombre_practica);
-		
-		Comparador comparador = new Comparador();
+		System.out.println(urls_filtradas.toString());
 		
 		// Hacemos las comparaciones entre las prácticas.
 		
-		 List<File> localDocs = new ArrayList<File>();
-		 try {
-			localDocs.add(new File(comparador.clonarepo(urls_filtradas.get(0))));
-			localDocs.add(new File(comparador.clonarepo(urls_filtradas.get(1))));
-			comparador.hacerGitDiff(localDocs.get(0), localDocs.get(1));
-			 System.out.println(urls_filtradas.toString());
-			    
-		} catch (IOException | GitAPIException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		 
-		 //localDocs.add(new File("/tmp/TestGitRepository2249447536820241654/P1.txt"));
-		 //localDocs.add(new File("/tmp/TestGitRepository17213631211084400426/P1.txt"));
-		 
-		 //System.out.println(localDocs);
-
+		Comparador comparador = new Comparador();
 		
+		for (int i=0; i < urls_filtradas.size(); i++) {
+			for (int j=0; j < urls_filtradas.size(); j++) {
+
+				if (j > i) {
+					
+					try {
+						comparador.hacerGitDiff(new File (comparador.clonarepo(urls_filtradas.get(i))), new File (comparador.clonarepo(urls_filtradas.get(j))));
+						    
+					} catch (IOException | GitAPIException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+					
+				}
+			}
+		}
+		 
 		dao.close();
 	}
 }
