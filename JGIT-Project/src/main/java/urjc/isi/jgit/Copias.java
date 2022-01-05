@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
 
-public class copias {
+public class Copias {
 
 	public static void main(String[] args) {
 		
@@ -47,15 +47,12 @@ public class copias {
 
 				if (j > i) {
 					String resultado;
+					
+					// Aquí ivan los métodos de comparación
 					System.out.println("compara");
-					resultado = "resultado de la comparación"
-					/*try {
-						; //comparador.hacerGitDiff(new File (comparador.clonarepo(urls_filtradas.get(i))), new File (comparador.clonarepo(urls_filtradas.get(j))));
-						    
-					} catch (IOException | GitAPIException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} */
+					
+					// Aquí tenemos ya el resultado de las comparaciones
+					resultado = "resultado de la comparación";
 					
 				}
 			}
