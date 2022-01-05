@@ -50,11 +50,12 @@ public class Copias {
 					
 					// Aquí ivan los métodos de comparación
 					System.out.println("compara");
-					
-					// Aquí tenemos ya el resultado de las comparaciones
 					resultado = "resultado de la comparación";
-					
+					// Aquí tenemos ya el resultado de las comparaciones
+										
 				}
+				
+				System.out.println(dao.nombreAlumno("https://gitlab.etsit.urjc.es/c.borao.2017/P1"));
 			}
 		}
 		dao.close();

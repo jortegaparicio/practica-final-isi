@@ -200,6 +200,24 @@ public class AppDao {
     }
     
     @SuppressWarnings("finally")
+    public String nombreAlumno(String url_repo){
+
+    	String nombre = null;
+
+    	try {
+    		PreparedStatement ps = c.prepareStatement("select alumnos.nombre from practicas join alumnos on practicas.dni = alumnos.dni where practicas.url = '" + url_repo + "'");
+    		ResultSet rs = ps.executeQuery();
+
+    		nombre = rs.getString("nombre");  
+   
+    	} catch (SQLException e) {
+    		throw new RuntimeException(e);
+    	} finally {
+              return nombre;
+          }    
+      }
+    
+    @SuppressWarnings("finally")
 	public List<String> practiceNames(){
     	
     	List<String> names = new ArrayList<String>();
