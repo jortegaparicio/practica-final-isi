@@ -46,20 +46,34 @@ public class copias {
 			for (int j=0; j < urls_filtradas.size(); j++) {
 
 				if (j > i) {
+<<<<<<< HEAD
 					String resultado;
 					System.out.println("compara");
 					resultado = "resultado de la comparación"
 					/*try {
 						; //comparador.hacerGitDiff(new File (comparador.clonarepo(urls_filtradas.get(i))), new File (comparador.clonarepo(urls_filtradas.get(j))));
+=======
+					
+					try {
+						comparador.hacerGitDiff(new File (comparador.clonarepo(urls_filtradas.get(i))), new File (comparador.clonarepo(urls_filtradas.get(j))));
+>>>>>>> 02c0a8b8de9054fa8ff916cd4a17b1588e06dd4e
 						    
 					} catch (IOException | GitAPIException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+<<<<<<< HEAD
 					} */
+=======
+					} 
+>>>>>>> 02c0a8b8de9054fa8ff916cd4a17b1588e06dd4e
 					
 				}
 			}
 		}
+<<<<<<< HEAD
+=======
+		 
+>>>>>>> 02c0a8b8de9054fa8ff916cd4a17b1588e06dd4e
 		dao.close();
 	}
 }
