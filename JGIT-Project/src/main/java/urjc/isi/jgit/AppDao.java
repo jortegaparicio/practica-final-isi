@@ -33,7 +33,7 @@ public class AppDao {
 	        
 	        c.prepareStatement("create table alumnos (dni varchar(10) not null, nombre varchar(30) not null, usuario_Git varchar(30) not null, primary key(dni))").execute();
 	        c.prepareStatement("create table practicas (dni varchar(10) not null, nombre varchar(70) not null, url varchar(80) not null, primary key(url), foreign key (dni) references Alumnos(dni))").execute();
-	        c.prepareStatement("create table resultados (url1 varchar(80), url2 varchar(80), contenido varchar(200), primary key(url1, url2))").execute();
+	        c.prepareStatement("create table resultados (url1 varchar(80), url2 varchar(80), practica varchar(30) not null, contenido varchar(200), primary key(url1, url2))").execute();
 	        
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Belén Rosa','brosaa');").execute();
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','Juan Antonio Ortega','ja.ortega.2017');").execute();
