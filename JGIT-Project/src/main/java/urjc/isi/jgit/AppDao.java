@@ -33,7 +33,7 @@ public class AppDao {
 	        
 	        c.prepareStatement("create table alumnos (dni varchar(10) not null, nombre varchar(30) not null, usuario_Git varchar(30) not null, primary key(dni))").execute();
 	        c.prepareStatement("create table practicas (dni varchar(10) not null, nombre varchar(70) not null, url varchar(80) not null, primary key(url), foreign key (dni) references Alumnos(dni))").execute();
-	        c.prepareStatement("create table resultados (url1 varchar(80), url2 varchar(80), practica varchar(30) not null, contenido varchar(200), primary key(url1, url2))").execute();
+	        c.prepareStatement("create table resultados (url1 varchar(80) not null, url2 varchar(80) not null, practica varchar(30) not null, contenido varchar(200))").execute();
 	        
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Belén Rosa','brosaa');").execute();
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','Juan Antonio Ortega','ja.ortega.2017');").execute();
@@ -76,7 +76,6 @@ public class AppDao {
         } finally {
             return allAlumnos;
         }
-
     }
 
     @SuppressWarnings("finally")
@@ -116,8 +115,9 @@ public class AppDao {
     		while(rs.next()) {
     			String url1 = rs.getString("url1");
     			String url2 = rs.getString("url2");
+    			String practica = rs.getString("practica");
     			String contenido = rs.getString("contenido");
-    			allResultados.add(new Resultado(url1, url2, contenido));
+    			allResultados.add(new Resultado(url1, url2, practica, contenido));
     		}
 
     	} catch (SQLException e) {
@@ -158,10 +158,11 @@ public class AppDao {
     
     public void saveResultado(Resultado res) {
         try {
-            PreparedStatement ps = c.prepareStatement("insert into resultados (url1, url2, contenido) values (?,?,?)");
+            PreparedStatement ps = c.prepareStatement("insert into resultados (url1, url2, practica, contenido) values (?,?,?,?)");
             ps.setString(1, res.getUrl1());
             ps.setString(2, res.getUrl2());
-            ps.setString(3, res.getContenido());	
+            ps.setString(3, res.getPractica());
+            ps.setString(4, res.getContenido());	
             ps.execute();
 
             c.commit();
@@ -237,17 +238,25 @@ public class AppDao {
             return names;
         }    
     }
-    
-    /*public static void main(String args[]) {
-   	 
-    	AppDao dao = new AppDao();
-        String nombre_practica = "P1";
-        List<String> urls_filtradas = dao.filteredUrls(nombre_practica);
- 
-        System.out.println(urls_filtradas.toString());
-        
-        List<String> nombresDePracticas = dao.practiceNames();
-        System.out.println(nombresDePracticas.toString());
-	   
-    }*/
+   
+    @SuppressWarnings("finally")
+	public List<String> generarResultado(String nombre_practica){
+    	
+    	List<String> contenido = new ArrayList<String>();
+    	
+    	try {
+    		PreparedStatement ps = c.prepareStatement("select contenido from resultados where practica = '" + nombre_practica + "'");
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                String info = rs.getString("contenido");  
+                contenido.add(info);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            return contenido;
+        }    
+    }
 }

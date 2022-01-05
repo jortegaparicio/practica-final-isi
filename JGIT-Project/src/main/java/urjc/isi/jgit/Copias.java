@@ -13,10 +13,9 @@ public class Copias {
 	public static void main(String[] args) {
 		
 		AppDao dao = new AppDao();
-		
+
 		if (args.length != 0 && args[0].equals("--resetdb"))
 			dao.resetDatabase();
-			
 		
 		System.out.println(dao.allAlumnos());
 		
@@ -48,16 +47,20 @@ public class Copias {
 				if (j > i) {
 					String resultado;
 					
-					// Aquí ivan los métodos de comparación
+					// Aquí iran los métodos de comparación
 					System.out.println("compara");
-					resultado = "resultado de la comparación";
-					// Aquí tenemos ya el resultado de las comparaciones
-										
+					resultado = "brosaa con ja.ortega tienen 38% copia";
+					
+					// Aquí tenemos ya el resultado de las comparaciones de un repo con el resto
+					dao.saveResultado(new Resultado(urls_filtradas.get(i),urls_filtradas.get(j),nombre_practica,resultado));	
 				}
-				
-				System.out.println(dao.nombreAlumno("https://gitlab.etsit.urjc.es/c.borao.2017/P1"));
 			}
 		}
+		
+		// Acabamos las comparaciones y generamos el informe
+		List<String> contenido = dao.generarResultado(nombre_practica);
+		
+		contenido.forEach(System.out::println);
 		dao.close();
 	}
 }

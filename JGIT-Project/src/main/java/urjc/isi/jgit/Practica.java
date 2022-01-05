@@ -47,6 +47,4 @@ public class Practica {
 	public String toString() {
 		return "Practica [dni=" + dni + ", nombre=" + nombre + ", url=" + url + "]";
 	}
-	
-	
 }
