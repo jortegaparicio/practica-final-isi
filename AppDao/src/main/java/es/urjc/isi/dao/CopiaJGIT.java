@@ -1,7 +1,10 @@
-/**
- * 
- */
+<<<<<<< HEAD:JGIT-Project/src/main/java/urjc/isi/jgit/Comparador.java
+
 package urjc.isi.jgit;
+=======
+package es.urjc.isi.dao;
+>>>>>>> 02c0a8b8de9054fa8ff916cd4a17b1588e06dd4e:AppDao/src/main/java/es/urjc/isi/dao/CopiaJGIT.java
+
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -13,7 +16,7 @@ import java.util.List;
 import java.io.*;
 import org.eclipse.jgit.diff.*;
 
-public class CopiaJGIT {
+public class Comparador {
 	
 	private static void resultadosCopia(String gitDiffOutput) throws IOException,
 	 InvalidRemoteException, TransportException, GitAPIException {
@@ -50,7 +53,7 @@ public class CopiaJGIT {
        
 	}
 	
-	private static void hacerGitDiff(File f1, File f2) throws IOException,
+	public static void hacerGitDiff(File f1, File f2) throws IOException,
 	 InvalidRemoteException, TransportException, GitAPIException {
 		OutputStream result = new ByteArrayOutputStream();
 		String output = null; 
@@ -149,3 +152,4 @@ public class CopiaJGIT {
     }
 
 }
+
