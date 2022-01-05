@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD:JGIT-Project/src/main/java/urjc/isi/jgit/Comparador.java
 
 package urjc.isi.jgit;
-=======
-package es.urjc.isi.dao;
->>>>>>> 02c0a8b8de9054fa8ff916cd4a17b1588e06dd4e:AppDao/src/main/java/es/urjc/isi/dao/CopiaJGIT.java
-=======
-
-package urjc.isi.jgit;
->>>>>>> 02c0a8b8de9054fa8ff916cd4a17b1588e06dd4e
 
 
 import org.eclipse.jgit.api.Git;
