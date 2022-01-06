@@ -257,8 +257,26 @@ public class AppDao {
       }
     
     @SuppressWarnings("finally")
+    public String getContenidoInforme(String nombre_practica){
+
+    	String nombre = null;
+
+    	try {
+    		PreparedStatement ps = c.prepareStatement("select informes.contenido from informes where informes.nombre_practica = '" + nombre_practica + "'");
+    		ResultSet rs = ps.executeQuery();
+
+    		nombre = rs.getString("contenido");  
+   
+    	} catch (SQLException e) {
+    		throw new RuntimeException(e);
+    	} finally {
+              return nombre;
+          }    
+      }
+    
+    @SuppressWarnings("finally")
 	public List<String> practiceNames(){
-    	
+    
     	List<String> names = new ArrayList<String>();
     	
     	try {

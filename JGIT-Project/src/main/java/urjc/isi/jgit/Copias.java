@@ -1,11 +1,7 @@
 package urjc.isi.jgit;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import org.eclipse.jgit.api.errors.GitAPIException;
 
 public class Copias {
 
@@ -34,8 +30,10 @@ public class Copias {
 		sc.close();
 		
 		List<String> informes_disponibles = dao.informesDisponibles();
+		
 		if (informes_disponibles.contains(nombre_practica)) {
-			System.out.println("ya existe");
+			System.out.println(dao.getContenidoInforme(nombre_practica));
+			
 		} else {
 			List<String> urls_filtradas = dao.filteredUrls(nombre_practica);
 			//System.out.println(urls_filtradas.toString());
