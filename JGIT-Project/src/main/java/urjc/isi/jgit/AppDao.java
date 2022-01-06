@@ -35,7 +35,7 @@ public class AppDao {
 	        c.prepareStatement("create table alumnos (dni varchar(10) not null, nombre varchar(30) not null, usuario_Git varchar(30) not null, primary key(dni))").execute();
 	        c.prepareStatement("create table practicas (dni varchar(10) not null, nombre varchar(70) not null, url varchar(80) not null, primary key(url), foreign key (dni) references Alumnos(dni))").execute();
 	        c.prepareStatement("create table resultados (url1 varchar(80) not null, url2 varchar(80) not null, practica varchar(30) not null, contenido varchar(200))").execute();
-	        c.prepareStatement("create table informes (practica varchar(80) not null, contenido varchar(200))").execute();
+	        c.prepareStatement("create table informes (nombre_practica varchar(80) not null, contenido varchar(200))").execute();
 	        
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Belén Rosa','brosaa');").execute();
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','Juan Antonio Ortega','ja.ortega.2017');").execute();
@@ -140,7 +140,7 @@ public class AppDao {
     		ResultSet rs = ps.executeQuery();
 
     		while(rs.next()) {
-    			String nombre = rs.getString("nombre");
+    			String nombre = rs.getString("nombre_practica");
     			String contenido = rs.getString("contenido");
     			allInformes.add(new Informe(nombre,contenido));
     		}
@@ -154,7 +154,7 @@ public class AppDao {
     
     public void saveInforme(Informe inf) {
     	try {
-            PreparedStatement ps = c.prepareStatement("insert into informes (nombre, contenido) values (?,?)");
+            PreparedStatement ps = c.prepareStatement("insert into informes (nombre_practica, contenido) values (?,?)");
             ps.setString(1, inf.getNombre());
             ps.setString(2, inf.getContenido());	
             ps.execute();
@@ -278,7 +278,7 @@ public class AppDao {
     }
    
     @SuppressWarnings("finally")
-	public List<String> generarResultado(String nombre_practica){
+	public List<String> generarResultados(String nombre_practica){
     	
     	List<String> contenido = new ArrayList<String>();
     	

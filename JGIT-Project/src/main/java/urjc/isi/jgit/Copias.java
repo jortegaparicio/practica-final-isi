@@ -16,7 +16,7 @@ public class Copias {
 		if (args.length != 0 && args[0].equals("--resetdb"))
 			dao.resetDatabase();
 		
-		System.out.println(dao.allAlumnos());
+		//System.out.println(dao.allAlumnos());
 		
 		List<String> disponibles = dao.practiceNames();
 		String nombre_practica;
@@ -34,7 +34,7 @@ public class Copias {
 		
 		sc.close();
 		List<String> urls_filtradas = dao.filteredUrls(nombre_practica);
-		System.out.println(urls_filtradas.toString());
+		//System.out.println(urls_filtradas.toString());
 		
 		// Hacemos las comparaciones entre las prácticas.
 		
@@ -47,7 +47,7 @@ public class Copias {
 					String resultado;
 					
 					// Aquí iran los métodos de comparación
-					System.out.println("compara");
+					// System.out.println("compara");
 					resultado = "brosaa con ja.ortega tienen 38% copia";
 					
 					// Aquí tenemos ya el resultado de las comparaciones de un repo con el resto
@@ -57,9 +57,20 @@ public class Copias {
 		}
 		
 		// Acabamos las comparaciones y generamos el informe
-		List<String> contenido = dao.generarResultado(nombre_practica);
 		
-		contenido.forEach(System.out::println);
+		List<String> resultados = dao.generarResultados(nombre_practica);
+		
+		String informe = "\nINFORME DE COPIAS DE LA PRÁCTICA '" + nombre_practica + "'\n";
+		String separator = "-";
+		informe += separator.repeat(informe.length()) + "\n";
+		
+		for(String resultado: resultados) {
+			informe += resultado + '\n';
+		}
+		dao.saveInforme(new Informe(nombre_practica, informe));
 		dao.close();
+		
+		// Imprimimos el informe
+		System.out.println(informe);
 	}
 }
