@@ -276,6 +276,27 @@ public class AppDao {
             return names;
         }    
     }
+    
+    @SuppressWarnings("finally")
+   	public List<String> informesDisponibles(){
+       	
+       	List<String> names = new ArrayList<String>();
+       	
+       	try {
+       		PreparedStatement ps = c.prepareStatement("select nombre_practica from informes");
+               ResultSet rs = ps.executeQuery();
+
+               while(rs.next()) {
+                   String nombre = rs.getString("nombre_practica");  
+                   names.add(nombre);
+               }
+
+           } catch (SQLException e) {
+               throw new RuntimeException(e);
+           } finally {
+               return names;
+           }    
+       }
    
     @SuppressWarnings("finally")
 	public List<String> generarResultados(String nombre_practica){
