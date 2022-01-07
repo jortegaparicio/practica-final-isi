@@ -1,26 +1,27 @@
 package urjc.isi.jgit;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-
 public class Copias {
 
+	/**
+	 * Punto de entrada de nuestro programa de copias.
+	 * 
+	 * @param args: si queremos resetar la base de datos args[0] == --resetdb
+	 */
 	public static void main(String[] args) {
 		
+		// Creamos el DAO para poder trabajar con la base de datos de la aplicación
 		AppDao dao = new AppDao();
-		
+	
+		// Comprobamos si el programa se la lanzado con el flag "--resetdb".
+		// Si es así, se reinicia la base de datos con el contenido original.
 		if (args.length != 0 && args[0].equals("--resetdb"))
 			dao.resetDatabase();
-			
 		
-		System.out.println(dao.allAlumnos());
-		
-		List<String> disponibles = dao.practiceNames();
+		// Se muestran las prácticas disponibles para conocer su informe.
+		List<String> disponibles = dao.practicasDisponibles();
 		String nombre_practica;
 		Scanner sc = new Scanner(System.in);
 		
@@ -32,32 +33,58 @@ public class Copias {
 			
 			nombre_practica = sc.nextLine();
 			
+			// Si el nombre de práctica introducido no se corresponde con ninguna almacenada en la BD,
+			// se vuelve a pedir al usuarios que introduca un nuevo nombre.
 		} while(!disponibles.contains(nombre_practica));
-		
 		sc.close();
-		List<String> urls_filtradas = dao.filteredUrls(nombre_practica);
-		System.out.println(urls_filtradas.toString());
 		
-		// Hacemos las comparaciones entre las prácticas.
+		// Consulta a la BD qué prácticas tienen ya un informe generado (de consultas previas)
+		List<String> informes_disponibles = dao.informesDisponibles();
 		
-		Comparador comparador = new Comparador();
-		
-		for (int i=0; i < urls_filtradas.size(); i++) {
-			for (int j=0; j < urls_filtradas.size(); j++) {
+		// Si se ha pedido una práctica que ya tenía el informe generado, se devuelve el informe.
+		// Si no hay un informe ya generado, se procede a generarlo.
+		if (informes_disponibles.contains(nombre_practica)) {
+			System.out.println(dao.getContenidoInforme(nombre_practica));
+			
+		} else {
+			
+			// Consulta a la BD las urls de los repositorios de las prácticas de los alumnos correspondientes a ese nombre de práctica.
+			List<String> urls_filtradas = dao.urlsFiltradas(nombre_practica);
+	
+			// Creamos un objeto comparador para comparar estas prácticas.
+			Comparador comparador = new Comparador();
+			
+			// Hacemos comparaciones de dos en dos entre prácticas sin repetición.
+			for (int i=0; i < urls_filtradas.size(); i++) {
+				for (int j=0; j < urls_filtradas.size(); j++) {
 
-				if (j > i) {
-					String resultado;
-					
-					// Aquí ivan los métodos de comparación
-					System.out.println("compara");
-					resultado = "resultado de la comparación";
-					// Aquí tenemos ya el resultado de las comparaciones
-										
+					if (j > i) {
+						String resultado;
+						
+						// Llamamos a los métodos de comparación de la clase comparador (programados con JGit)
+						resultado = "brosaa con ja.ortega tienen 38% copia";
+						
+						// Guardamos el resultado de la comparación entre dos prácticas en la BD
+						dao.saveResultado(new Resultado(urls_filtradas.get(i),urls_filtradas.get(j),nombre_practica,resultado));	
+					}
 				}
-				
-				System.out.println(dao.nombreAlumno("https://gitlab.etsit.urjc.es/c.borao.2017/P1"));
 			}
+			
+			// Una vez hemos acabado las comparaciones, generamos el informe y lo guardamos en la BD.
+			List<String> resultados = dao.generarResultados(nombre_practica);
+			
+			String informe = "\nINFORME DE COPIAS DE LA PRÁCTICA '" + nombre_practica + "'\n";
+			String separator = "-";
+			informe += separator.repeat(informe.length()) + "\n";
+			
+			for(String resultado: resultados) {
+				informe += resultado + '\n';
+			}
+			dao.saveInforme(new Informe(nombre_practica, informe));
+			
+			// Imprimimos el informe generado
+			System.out.println(informe);
+			dao.close();
 		}
-		dao.close();
 	}
 }
