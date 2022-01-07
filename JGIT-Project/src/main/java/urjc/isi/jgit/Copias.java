@@ -21,7 +21,7 @@ public class Copias {
 			dao.resetDatabase();
 		
 		// Se muestran las prácticas disponibles para conocer su informe.
-		List<String> disponibles = dao.practiceNames();
+		List<String> disponibles = dao.practicasDisponibles();
 		String nombre_practica;
 		Scanner sc = new Scanner(System.in);
 		

@@ -72,7 +72,7 @@ public class AppDao {
     }
     
     /**
-     * Método que imprime la tabla de alumnos
+     * Método que devuelve la tabla de alumnos
      * 
      * @return La lista de todos los alumnos
      */
@@ -101,7 +101,7 @@ public class AppDao {
     }
 
     /**
-     * Método que imprime la tabla de prácticas
+     * Método que devuelve la tabla de prácticas
      * 
      * @return La lista de todos las prácticas
      */
@@ -130,7 +130,7 @@ public class AppDao {
     }
     
     /**
-     * Método que imprime la tabla con los resultados de las comparaciones entre dos repositorios.
+     * Método que devuelve la tabla con los resultados de las comparaciones entre dos repositorios.
      * 
      * @return La lista de todos las prácticas
      */
@@ -160,7 +160,7 @@ public class AppDao {
     }
     
     /**
-     * Método que imprime la tabla con los informes de detección de copias generados
+     * Método que devuelve la tabla con los informes de detección de copias generados
      * 
      * @return La lista de todos los informes
      */
