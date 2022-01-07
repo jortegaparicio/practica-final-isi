@@ -38,8 +38,8 @@ public class AppDao {
     public void resetDatabase() {
         
     	try {
-	        c.setAutoCommit(false);
-	
+	        //c.setAutoCommit(false);
+    		
 	        // Creamos las tablas de la BD
 	        c.prepareStatement("drop table if exists alumnos").execute();
 	        c.prepareStatement("drop table if exists practicas").execute();
@@ -49,20 +49,20 @@ public class AppDao {
 	        c.prepareStatement("create table alumnos (dni varchar(10) not null, nombre varchar(30) not null, usuario_Git varchar(30) not null, primary key(dni))").execute();
 	        c.prepareStatement("create table practicas (dni varchar(10) not null, nombre varchar(70) not null, url varchar(80) not null, primary key(url), foreign key (dni) references Alumnos(dni))").execute();
 	        c.prepareStatement("create table resultados (url1 varchar(80) not null, url2 varchar(80) not null, practica varchar(30) not null, contenido varchar(200))").execute();
-	        c.prepareStatement("create table informes (nombre_practica varchar(80) not null, contenido varchar(200))").execute();
+	        c.prepareStatement("create table informes (nombre_practica varchar(80) not null, contenido varchar(200) not null, primary key(nombre_practica))").execute();
 	        
 	        // Insertamos el contenido inicial de la BD
-	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Belén Rosa','brosaa');").execute();
-	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','Juan Antonio Ortega','ja.ortega.2017');").execute();
-	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('95639423Y','César Borao','c.borao.2017');").execute();
+	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Belén Rosa','brosaa')").execute();
+	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','Juan Antonio Ortega','ja.ortega.2017')").execute();
+	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('95639423Y','César Borao','c.borao.2017')").execute();
 	        
-	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P1','https://gitlab.etsit.urjc.es/brosaa/P1');").execute();
-	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P2','https://gitlab.etsit.urjc.es/brosaa/P2');").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P1','https://gitlab.etsit.urjc.es/brosaa/P1')").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P2','https://gitlab.etsit.urjc.es/brosaa/P2')").execute();
 	        
-	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P1','https://gitlab.etsit.urjc.es/ja.ortega.2017/P1');").execute();
-	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P2','https://gitlab.etsit.urjc.es/ja.ortega.2017/P2');").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P1','https://gitlab.etsit.urjc.es/ja.ortega.2017/P1')").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P2','https://gitlab.etsit.urjc.es/ja.ortega.2017/P2')").execute();
 	        
-	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('95639423Y','P1','https://gitlab.etsit.urjc.es/c.borao.2017/P1');").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('95639423Y','P1','https://gitlab.etsit.urjc.es/c.borao.2017/P1')").execute();
 	              
 	        c.commit();
         
@@ -121,6 +121,7 @@ public class AppDao {
     			String url = rs.getString("url");
     			allPracticas.add(new Practica(dni, name, url));
     		}
+    		c.commit();
 
     	} catch (SQLException e) {
     		throw new RuntimeException(e);
@@ -338,7 +339,7 @@ public class AppDao {
     		ResultSet rs = ps.executeQuery();
 
     		nombre = rs.getString("contenido");  
-   
+    		c.commit();
     	} catch (SQLException e) {
     		throw new RuntimeException(e);
     	} finally {
