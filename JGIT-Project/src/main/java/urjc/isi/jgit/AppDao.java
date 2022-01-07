@@ -38,8 +38,7 @@ public class AppDao {
     public void resetDatabase() {
         
     	try {
-	        //c.setAutoCommit(false);
-    		
+	            		
 	        // Creamos las tablas de la BD
 	        c.prepareStatement("drop table if exists alumnos").execute();
 	        c.prepareStatement("drop table if exists practicas").execute();

@@ -8,11 +8,11 @@ import java.util.List;
 
 public class DaoSaveTest {
 
-	static AppDao dao = new AppDao();
+	static AppDao dao;
 
 	@BeforeClass
 	public static void InitDao() {
-		// dao = new AppDao();
+		dao = new AppDao();
 		dao.resetDatabase();
 	}
 

@@ -6,11 +6,11 @@ import static org.junit.Assert.*;
 
 public class DaoAllTest {
 
-	static AppDao dao = new AppDao();
+	static AppDao dao;
 
 	@BeforeClass
 	public static void InitDao() {
-		// dao = new AppDao();
+		dao = new AppDao();
 		dao.resetDatabase();
 	}
 
