@@ -4,10 +4,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * DAO para nuestra aplicación de detección de copias.
+ * 
+ * @author César Borao
+ *
+ */
 public class AppDao {
 
 	private static Connection c;
 
+	/**
+	 *  Crea una conexión con nuestra base de datos
+	 */
     public AppDao() {
         try {
             if(c!=null) return;
@@ -22,11 +32,15 @@ public class AppDao {
         }
     }    
     
+    /**
+     * Resetea la base de datos con los valores iniciales
+     */
     public void resetDatabase() {
         
     	try {
 	        c.setAutoCommit(false);
 	
+	        // Creamos las tablas de la BD
 	        c.prepareStatement("drop table if exists alumnos").execute();
 	        c.prepareStatement("drop table if exists practicas").execute();
 	        c.prepareStatement("drop table if exists resultados").execute();
@@ -37,6 +51,7 @@ public class AppDao {
 	        c.prepareStatement("create table resultados (url1 varchar(80) not null, url2 varchar(80) not null, practica varchar(30) not null, contenido varchar(200))").execute();
 	        c.prepareStatement("create table informes (nombre_practica varchar(80) not null, contenido varchar(200))").execute();
 	        
+	        // Insertamos el contenido inicial de la BD
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Belén Rosa','brosaa');").execute();
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','Juan Antonio Ortega','ja.ortega.2017');").execute();
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('95639423Y','César Borao','c.borao.2017');").execute();
@@ -56,6 +71,11 @@ public class AppDao {
 	    }
     }
     
+    /**
+     * Método que imprime la tabla de alumnos
+     * 
+     * @return La lista de todos los alumnos
+     */
     @SuppressWarnings("finally")
 	public List<Alumno> allAlumnos() {
 
@@ -80,6 +100,11 @@ public class AppDao {
         }
     }
 
+    /**
+     * Método que imprime la tabla de prácticas
+     * 
+     * @return La lista de todos las prácticas
+     */
     @SuppressWarnings("finally")
     public List<Practica> allPracticas() {
 
@@ -104,6 +129,11 @@ public class AppDao {
     	}
     }
     
+    /**
+     * Método que imprime la tabla con los resultados de las comparaciones entre dos repositorios.
+     * 
+     * @return La lista de todos las prácticas
+     */
     @SuppressWarnings("finally")
     public List<Resultado> allResultados() {
 
@@ -129,6 +159,11 @@ public class AppDao {
     	}
     }
     
+    /**
+     * Método que imprime la tabla con los informes de detección de copias generados
+     * 
+     * @return La lista de todos los informes
+     */
     @SuppressWarnings("finally")
     public List<Informe> allInformes() {
 
@@ -152,6 +187,10 @@ public class AppDao {
     	}
     }
     
+    /**
+     * Método para guardar un informe en la BD
+     * @param inf: El informe a guardar en la BD
+     */
     public void saveInforme(Informe inf) {
     	try {
             PreparedStatement ps = c.prepareStatement("insert into informes (nombre_practica, contenido) values (?,?)");
@@ -165,6 +204,10 @@ public class AppDao {
         }
     }
     
+    /**
+     * Método para guardar un nuevo Alumno en la BD.
+     * @param al: El alumno a guardar
+     */
     public void saveAlumno(Alumno al) {
         try {
             PreparedStatement ps = c.prepareStatement("insert into alumnos (dni, nombre, usuario_Git) values (?,?,?)");
@@ -179,6 +222,10 @@ public class AppDao {
         }
     }
 
+    /**
+     * Método para guardar una Práctica en la BD.
+     * @param prac: La práctica a guardar en la BD
+     */
     public void savePractica(Practica prac) {
         try {
             
@@ -194,6 +241,10 @@ public class AppDao {
         }
     }
     
+    /**
+     * Método para guardar un Resultado en la BD.
+     * @param res: El resultado a guardar
+     */
     public void saveResultado(Resultado res) {
         try {
             PreparedStatement ps = c.prepareStatement("insert into resultados (url1, url2, practica, contenido) values (?,?,?,?)");
@@ -209,6 +260,9 @@ public class AppDao {
         }
     }
     
+    /**
+     * Método para cerrar la conexión con la base de datos.
+     */
     public void close() {
         try {
             c.close();
@@ -217,8 +271,14 @@ public class AppDao {
         }
     }
     
+    /**
+     * Método para obtener una lista de urls de la misma práctica para los diferentes alumnos
+     * 
+     * @param nombre_practica
+     * @return Un lista con las urls de los repos de los alumnos que se corresponden con ese nombre de práctica
+     */
     @SuppressWarnings("finally")
-	public List<String> filteredUrls(String nombre_practica){
+	public List<String> urlsFiltradas(String nombre_practica){
     	
     	List<String> filtered_urls = new ArrayList<String>();
     	
@@ -238,6 +298,12 @@ public class AppDao {
         }    
     }
     
+    /**
+     * Método para conocer el alumno que es dueño del repositorio que se pasa como parámetro.
+     * 
+     * @param url_repo: repositorio del cual queremos conocer su dueño
+     * @return el nombre del alumno
+     */
     @SuppressWarnings("finally")
     public String nombreAlumno(String url_repo){
 
@@ -256,6 +322,12 @@ public class AppDao {
           }    
       }
     
+    /**
+     * Método para conocer el contenido de un informe almacenado en la base de datos
+     * 
+     * @param nombre_practica: práctica de la cual queremos conocer su informe de copias.
+     * @return el contenido del informe
+     */
     @SuppressWarnings("finally")
     public String getContenidoInforme(String nombre_practica){
 
@@ -274,8 +346,13 @@ public class AppDao {
           }    
       }
     
+    /**
+     *  Método para conocer los nombres de las prácticas disponibles para consultar su informe de copias
+     *  
+     * @return una lista de los nombres de las prácticas
+     */
     @SuppressWarnings("finally")
-	public List<String> practiceNames(){
+	public List<String> practicasDisponibles(){
     
     	List<String> names = new ArrayList<String>();
     	
@@ -295,6 +372,11 @@ public class AppDao {
         }    
     }
     
+    /**
+     *  Método para consultar los nombres de las prácticas que tienen ya generado un informe de copias 
+     * 
+     * @return una lista de nombres de prácticas
+     */
     @SuppressWarnings("finally")
    	public List<String> informesDisponibles(){
        	
@@ -316,6 +398,12 @@ public class AppDao {
            }    
        }
    
+    /**
+     * Método para consultar todos los resultados de las comparaciones entre las prácticas de los alumnos que se correspondan con un nombre de práctica en concreto
+     * 
+     * @param nombre_practica de la cual queremos conocer los resultados de las comparaciones
+     * @return una lista con los resultados de las comparaciones
+     */
     @SuppressWarnings("finally")
 	public List<String> generarResultados(String nombre_practica){
     	

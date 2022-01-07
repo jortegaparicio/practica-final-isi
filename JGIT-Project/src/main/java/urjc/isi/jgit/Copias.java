@@ -5,12 +5,6 @@ import java.util.Scanner;
 
 public class Copias {
 
-
-	private static void generarInforme(String nombre_practica) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	/**
 	 * Punto de entrada de nuestro programa de copias.
 	 * 
@@ -55,7 +49,7 @@ public class Copias {
 		} else {
 			
 			// Consulta a la BD las urls de los repositorios de las prácticas de los alumnos correspondientes a ese nombre de práctica.
-			List<String> urls_filtradas = dao.filteredUrls(nombre_practica);
+			List<String> urls_filtradas = dao.urlsFiltradas(nombre_practica);
 	
 			// Creamos un objeto comparador para comparar estas prácticas.
 			Comparador comparador = new Comparador();
