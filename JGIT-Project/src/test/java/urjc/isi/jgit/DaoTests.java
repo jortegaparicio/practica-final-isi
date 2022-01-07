@@ -42,14 +42,36 @@ public class DaoTests {
 	}
 
 	@Test
-	public void allResultados() {
+	public void allResultadosTest() {
 		dao.saveResultado(new Resultado("https://gitlab.etsit.urjc.es/brosaa/P1","https://gitlab.etsit.urjc.es/c.borao.2017/P1","P1","contenido de la comparación entre la P1 de brosaa y c.borao.2017"));
 
 		assertEquals("[Resultado [url1=https://gitlab.etsit.urjc.es/brosaa/P1, "
 				+ "url2=https://gitlab.etsit.urjc.es/c.borao.2017/P1, practica=P1, "
 				+ "contenido=contenido de la comparación entre la P1 de brosaa y c.borao.2017]]", dao.allResultados().toString());
 	}
-/*
+	
+	@Test
+	public void allInformesTest() {
+		dao.saveInforme(new Informe("P1","Contenido del informe de comparación de copias"));
+
+		assertEquals("[Informe [nombre=P1, "
+				+ "contenido=Contenido del informe de comparación de copias]]", dao.allInformes().toString());
+	}
+
+	@Test
+	public void saveInformeTest() {
+		Informe new_informe = new Informe("P1","Contenido del Informe");
+		dao.saveInforme(new_informe);
+
+		List<Informe> allInformes = dao.allInformes();
+
+		for(Informe inf: allInformes) {
+			if(new_informe.equals(inf))
+				return;
+		}
+		fail();
+	}
+	
 	@Test
 	public void saveAlumnoTest() {
 
@@ -83,7 +105,7 @@ public class DaoTests {
 	@Test
 	public void saveResultadoTest() {
 
-		Resultado new_resultado = new Resultado("http://gitlab.com/laugon/P2","http://gitlab.com/pacfer/P2","contenido de la comparación entre la P2 de laura y paco");
+		Resultado new_resultado = new Resultado("http://gitlab.com/laugon/P2","http://gitlab.com/pacfer/P2","P2","contenido de la comparación entre la P2 de laura y paco");
 		dao.saveResultado(new_resultado);
 
 		List<Resultado> allResultado = dao.allResultados();
@@ -94,7 +116,7 @@ public class DaoTests {
 		}
 		fail();
 	}
-
+/*
 	@Test
 	public void practiceNamesTest() {
 		assertEquals("[P1, P2, P3]", dao.practiceNames().toString());
