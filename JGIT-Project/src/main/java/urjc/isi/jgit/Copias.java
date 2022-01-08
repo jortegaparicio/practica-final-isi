@@ -61,11 +61,9 @@ public class Copias {
 						String resultado;
 						
 						// Llamamos a los métodos de comparación de la clase comparador (programados con JGit)
-						//resultado = "brosaa con ja.ortega tienen 38% copia";
-						//System.out.println(urls_filtradas.get(i).toString() + urls_filtradas.get(j).toString());
 						resultado = comparador.hacerGitDiff(urls_filtradas.get(i), urls_filtradas.get(j));
-						System.out.println(resultado);
-						//System.out.println("SALGO");
+						//System.out.println(resultado);
+
 						// Guardamos el resultado de la comparación entre dos prácticas en la BD
 						dao.saveResultado(new Resultado(urls_filtradas.get(i),urls_filtradas.get(j),nombre_practica,resultado));	
 					}

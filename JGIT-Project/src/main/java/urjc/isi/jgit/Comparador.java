@@ -14,7 +14,6 @@ public class Comparador {
 		
 	private static String resultadosCopia(String gitDiffOutput, String url1, String url2) {
 	   try {
-		   
 			// Creamos el DAO para poder trabajar con la base de datos de la aplicación
 			AppDao dao = new AppDao();
 			
@@ -45,7 +44,7 @@ public class Comparador {
 	       
 	       float porcentCopia = (count*100/(float) minLines);
 	       
-	       String resultado = "Prácticas de los/as alumnos/as " + dao.nombreAlumno(url1);
+	       String resultado = "Alumnos/as " + dao.nombreAlumno(url1);
 	       resultado += " y " + dao.nombreAlumno(url2) + ":\n";
 	       
 	       resultado += "La práctica de " + dao.nombreAlumno(url1) + " tiene " + f1_nlines + " líneas\n";
