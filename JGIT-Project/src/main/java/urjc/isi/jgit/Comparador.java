@@ -11,36 +11,47 @@ import org.apache.commons.io.FileUtils;
 
 
 public class Comparador {
-	
-	private static String resultadosCopia(String gitDiffOutput) {
+		
+	private static String resultadosCopia(String gitDiffOutput, String url1, String url2) {
 	   try {
+		   
+			// Creamos el DAO para poder trabajar con la base de datos de la aplicación
+			AppDao dao = new AppDao();
+			
 		   String[] parts = gitDiffOutput.split("\n");
+		   //System.out.println(gitDiffOutput); //Salida del git diff 
 	       
-	       String[] partsF1 = gitDiffOutput.split("-");
-	       String[] partsF2 = gitDiffOutput.split("\\+");
+	       String lines = gitDiffOutput.split("@@")[1];
 	       
-	       String f1_nlines = partsF1[1].split(",")[1].split(" ")[0];
-	       String f2_nlines = partsF2[1].split(",")[1].split(" ")[0];
-
-	       //System.out.println(gitDiffOutput); Salida del git diff
-	       //System.out.println(partsF1.length - 2); Líneas únicas en F1
-	       //System.out.println(partsF2.length - 2); Líneas únicas en F2
+	       String[] partsF = lines.split(",");
 	       
+	       String f1_nlines = partsF[1].split(" ")[0];
+	       String f2_nlines;
+	       
+	       if (partsF.length != 3) {
+	    	   f2_nlines = "1";
+	       } else {
+	    	   f2_nlines = partsF[2].split(" ")[0];
+	       }
 
 	       int count = 0;
+
 	       for(int i = 0; i < parts.length; i++) {
-	       	if(Character.compare(parts[i].charAt(0), ' ') == 0) {
-	       		count++;
-	       	}
+		       if(Character.compare(parts[i].charAt(0), ' ') == 0) {
+		    	   count++;
+		       }
 	       }
-	       int minLines = Math.min(Integer.parseInt(f2_nlines), Integer.parseInt(f1_nlines));
+	       int minLines = Math.max(Integer.parseInt(f2_nlines), Integer.parseInt(f1_nlines));
 	       
 	       float porcentCopia = (count*100/(float) minLines);
 	       
-	       String resultado = "F1 tiene " + f1_nlines + " líneas\n";
-	       resultado += "F2 tiene " + f2_nlines + " líneas\n";
+	       String resultado = "Prácticas de los/as alumnos/as " + dao.nombreAlumno(url1);
+	       resultado += " y " + dao.nombreAlumno(url2) + ":\n";
+	       
+	       resultado += "La práctica de " + dao.nombreAlumno(url1) + " tiene " + f1_nlines + " líneas\n";
+	       resultado += "La práctica de " + dao.nombreAlumno(url2) + " tiene " + f2_nlines + " líneas\n";
 	       resultado += "Un total de " + count + " líneas son iguales\n";
-	       resultado += "Porcentaje de copia del " + porcentCopia + "% entre trabajos\n";
+	       resultado += "Porcentaje de copia del " + porcentCopia + "% entre los trabajos\n";
 	       
 	       return resultado;
 	   
@@ -74,7 +85,6 @@ public class Comparador {
 	    }
 	}
 	
-	//@SuppressWarnings("finally")
 	private static File clonarepo(String remoteUrl) throws IOException { 
 
 		 File localPath;
@@ -122,7 +132,7 @@ public class Comparador {
 	        
 	        output = result.toString();
 	        
-	        String resultado = resultadosCopia(output);	        
+	        String resultado = resultadosCopia(output, url1, url2);	        
 	        
 	        diffForm.close();
 	        FileUtils.deleteDirectory(localRepo1);
