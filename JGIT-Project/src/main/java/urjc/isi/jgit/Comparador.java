@@ -209,14 +209,14 @@ public class Comparador {
 		
 	}
 	
-	public static void compareCommit(String url1, String url2) {
+	public static String compNumCommit(String url1, String url2) {
 		try { 
 			File localRepo1 = clonarepo(url1);
 			File localRepo2 = clonarepo(url2);
 			System.out.println(localRepo1.toString());
 			System.out.println(localRepo2.toString());
 			 //System.out.println(localDocs);		 
-			System.out.println(umbralNumCommit(localRepo1.toString(), url1, localRepo2.toString(), url2));
+			return umbralNumCommit(localRepo1.toString(), url1, localRepo2.toString(), url2);
 	    } catch (IOException e) {
 	    	throw new RuntimeException(e);
 	    }
