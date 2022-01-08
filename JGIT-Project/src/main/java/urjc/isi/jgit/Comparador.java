@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 import org.eclipse.jgit.diff.*;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
 
 public class Comparador {
 	
@@ -90,32 +92,30 @@ public class Comparador {
 		 
 		 return files[0].getName();
 	}
+	private static Repository clonarepo2(String remoteUrl) throws IOException { 
+
+		 File localPath;
+		
+		localPath = File.createTempFile("TestGitRepository", ""); 
 	
-	public static String clonarepo(String remoteUrl) throws IOException,
-	 InvalidRemoteException, TransportException, GitAPIException { 
-		 // prepare a new folder for the cloned repository 
-		 File localPath = File.createTempFile("TestGitRepository", "");
-		 
-		 if(!localPath.delete()) { 
-			 throw new IOException("Could not delete temporary file " + localPath); 
-		 }
-		 	
-		 // then clone 
-		 //System.out.println("Cloning from " + remoteUrl + " to " + localPath); 
+		if(!localPath.delete()) { 
+			throw new IOException("Could not delete temporary file " + localPath); 
+		}
+
 		 try (Git result = Git.
 				 cloneRepository() 
 				 .setURI(remoteUrl)
 				 .setDirectory(localPath) 
 				 .call()) { 
-			 // Note: the call() returns an opened repository already which needs to be closed to avoid file handle leaks!
-			 	System.out.println("Having repository: " + result.getRepository().getDirectory());		 	
-		 }
-
-		 return localPath + "/" + obtenerFicheroTXT(localPath);
-		 // clean up here to not keep using more and more disk-space for these samples
-		 //FileUtils.deleteDirectory(localPath);  
+			 
+			 //System.out.println("Having repository: " + result.getRepository().getDirectory());	
+			 return result.getRepository();
+		 } catch (Exception e) {
+			 throw new RuntimeException(e);
+	
+	 } 
 	 }
-    
+		
 	private static List<String> fileToLines(File file) throws IOException {
         final List<String> lines = new ArrayList<String>();
         String line;
@@ -127,22 +127,60 @@ public class Comparador {
  
         return lines;
     }
-	
+	//comparamos el último commit hecho en 2 urls distintas
+	@SuppressWarnings("resource")
+	public static void compararUltimoCommit (String url1, String url2) throws Exception{
+		try {
+			AppDao dao = new AppDao();
+			String nombre1= dao.nombreAlumno(url1);
+			String nombre2= dao.nombreAlumno(url2);
+			
+			Repository localRepo1 = clonarepo2(url1);
+			Repository localRepo2 = clonarepo2(url2);
+			//seleccionamos el último commit de cada url
+			RevCommit latestCommitF1 = new Git(localRepo1).log().setMaxCount(1).call().iterator().next();
+			int latestCommitTime1 = latestCommitF1.getCommitTime();
+			
+			RevCommit latestCommitF2 = new Git(localRepo2).log().setMaxCount(1).call().iterator().next();
+			int latestCommitTime2 = latestCommitF2.getCommitTime();
+			
+			/*
+			 * En latestCommitTime tenemos el tiempo en segundos.
+			 * Ahora comparamos ambos - Vamos a estipular como media hora de diferencia el tiempo
+			 * para el que consideramos que es posible que haya copia
+			 */
+			System.out.println(latestCommitTime1);
+			System.out.println(latestCommitTime2);
+			if ((latestCommitTime1-latestCommitTime2 >=0 && latestCommitTime1-latestCommitTime2 <=1800)||
+					(latestCommitTime2-latestCommitTime1 >=0 && latestCommitTime2-latestCommitTime1 <=1800)) {
+				System.out.println("Posible copia por último commit entre " +nombre1 +" y " 
+					+ nombre2 +", no se diferencian en media hora");
+			}else {
+				System.out.println("No hay indicios de copia entre " + nombre1 + " y "+ nombre2+
+						", tiempo entre commits mayor de 30 minutos");
+			}
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
     public static void main(String[] args) throws Exception {
 
 		 List<String> urls = new ArrayList<String>();
 		 urls.add("https://gitlab.etsit.urjc.es/brosaa/P1");
 		 urls.add("https://gitlab.etsit.urjc.es/ja.ortega.2017/P1");
 		 
-		 List<File> localDocs = new ArrayList<File>();
-		 localDocs.add(new File(clonarepo(urls.get(0)))); 
-		 localDocs.add(new File(clonarepo(urls.get(1))));
+/*		 List<Repository> localDocs = new ArrayList<Repository>();
+		 localDocs.add(clonarepo2(urls.get(0)));
+		 localDocs.add(clonarepo2(urls.get(1)));
+	*/	 
+		 //localDocs.add(new Repository(clonarepo2(urls.get(0)))); 
+		 //localDocs.add(new Repository(clonarepo2(urls.get(1))));
 		 //localDocs.add(new File("/tmp/TestGitRepository2249447536820241654/P1.txt"));
 		 //localDocs.add(new File("/tmp/TestGitRepository17213631211084400426/P1.txt"));
 		 
-		 //System.out.println(localDocs);
-
-		 hacerGitDiff(localDocs.get(0), localDocs.get(1));
+//		 System.out.println(localDocs);
+		 compararUltimoCommit(urls.get(0),urls.get(1));
+		 //hacerGitDiff(localDocs.get(0), localDocs.get(1));
 		
     }
 
