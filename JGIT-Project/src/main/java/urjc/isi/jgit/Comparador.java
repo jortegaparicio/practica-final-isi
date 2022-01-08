@@ -6,12 +6,20 @@ import org.eclipse.jgit.api.Git;
 //import java.util.ArrayList;
 //import java.util.List;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jgit.diff.*;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.apache.commons.io.FileUtils;
 
 
 public class Comparador {
 		
+	static final int UMBRAL_COPIA_COMMIT = 5;
+	
 	private static String resultadosCopia(String gitDiffOutput, String url1, String url2) {
 	   try {
 			// Creamos el DAO para poder trabajar con la base de datos de la aplicación
@@ -144,19 +152,91 @@ public class Comparador {
 	    }
 	}
 	
-  /*  public static void main(String[] args) throws Exception {
-//
+	
+	
+
+	/**
+	 * Devuelve el numero de commits de un repositorio
+	 * @param dirRepo
+	 * @return
+	 */
+	public static int numCommit(String dirRepo){
+		 
+		int res = 0;
+		try (Repository repository = new FileRepositoryBuilder()
+				    .setGitDir(new File(dirRepo + "/.git"))
+				    .build();) {
+	            try (Git git = new Git(repository)) {
+	                Iterable<RevCommit> commits = git.log().all().call();
+	                int count = 0;
+	                for (RevCommit commit : commits) {
+	                    res = count++;
+	                }
+	            } catch (Exception e) {
+					e.printStackTrace();
+				}
+	     } catch (IOException e) {
+			e.printStackTrace();
+		}
+		 return res;
+		 
+	}
+	
+
+	/**
+	 * Este metodo devuelve el directorio con mas copias en caso de que supere el umbral de copias. "No hay suficiente diferencia de commit entre los repositorios".
+	 * @param dir1
+	 * @param dir2
+	 * @return
+	 */
+	private static String umbralNumCommit(String dir1, String url1, String dir2, String url2) {
+		int ncommit1 = numCommit(dir1);
+		int ncommit2 = numCommit(dir2);
+		int diff = ncommit1-ncommit2;
+		AppDao dao = new AppDao();
+
+		
+		if (diff > UMBRAL_COPIA_COMMIT) {
+			return dao.nombreAlumno(url1) + " ha hecho " + diff + " commit(s) más que " + dao.nombreAlumno(url2);
+		}
+		
+		diff = ncommit2 - ncommit1;
+		
+		if (diff > UMBRAL_COPIA_COMMIT) {
+			return dao.nombreAlumno(url2) + " ha hecho " + diff + " commit(s) más que " + dao.nombreAlumno(url1);
+		}
+		return "No hay suficiente diferencia de commit entre los repositorios de los alumnos " + dao.nombreAlumno(url1) + " y " + dao.nombreAlumno(url2);
+		
+	}
+	
+	public static void compareCommit(String url1, String url2) {
+		try { 
+			File localRepo1 = clonarepo(url1);
+			File localRepo2 = clonarepo(url2);
+			System.out.println(localRepo1.toString());
+			System.out.println(localRepo2.toString());
+			 //System.out.println(localDocs);		 
+			System.out.println(umbralNumCommit(localRepo1.toString(), url1, localRepo2.toString(), url2));
+	    } catch (IOException e) {
+	    	throw new RuntimeException(e);
+	    }
+	}
+	/*
+    public static void main(String[] args) throws Exception {
+
 		 List<String> urls = new ArrayList<String>();
 		 urls.add("https://gitlab.etsit.urjc.es/brosaa/P1");
 		 urls.add("https://gitlab.etsit.urjc.es/ja.ortega.2017/P1");
-//		 
-////		 if (args.length != 3) {
-////			 throw new Exception("Introduce las urls como argumentos");
-////		 }
-//
-		 hacerGitDiff(urls.get(0), urls.get(1));
-		
-    }*/
+		 
+		 
+		 compareCommit(urls.get(0),urls.get(1));
 
+		 //hacerGitDiff(localDocs.get(0), localDocs.get(1));
+		
+    }
+*/
 }
+
+
+
 
