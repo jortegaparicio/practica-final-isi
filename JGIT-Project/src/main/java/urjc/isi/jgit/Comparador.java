@@ -19,31 +19,39 @@ public class Comparador {
 			
 		   String[] parts = gitDiffOutput.split("\n");
 		   //System.out.println(gitDiffOutput); //Salida del git diff 
-	       
-	       String lines = gitDiffOutput.split("@@")[1];
-	       
-	       String[] partsF = lines.split(",");
-	       
-	       String f1_nlines = partsF[1].split(" ")[0];
-	       String f2_nlines;
-	       
-	       if (partsF.length != 3) {
-	    	   f2_nlines = "1";
-	       } else {
-	    	   f2_nlines = partsF[2].split(" ")[0];
-	       }
-
-	       int count = 0;
-
-	       for(int i = 0; i < parts.length; i++) {
-		       if(Character.compare(parts[i].charAt(0), ' ') == 0) {
-		    	   count++;
+		   
+		   float porcentCopia = 0;
+		   int count = 0;
+		   String f1_nlines = "";
+	       String f2_nlines = "";
+		   
+		   if  (gitDiffOutput.length() != 0) {
+			   String lines = gitDiffOutput.split("@@")[1];
+		       
+		       String[] partsF = lines.split(",");
+		       
+		       f1_nlines = partsF[1].split(" ")[0];
+		       
+		       if (partsF.length != 3) {
+		    	   f2_nlines = "1";
+		       } else {
+		    	   f2_nlines = partsF[2].split(" ")[0];
 		       }
-	       }
-	       int minLines = Math.max(Integer.parseInt(f2_nlines), Integer.parseInt(f1_nlines));
-	       
-	       float porcentCopia = (count*100/(float) minLines);
-	       
+
+		       count = 0;
+
+		       for(int i = 0; i < parts.length; i++) {
+			       if(Character.compare(parts[i].charAt(0), ' ') == 0) {
+			    	   count++;
+			       }
+		       }
+		       int minLines = Math.max(Integer.parseInt(f2_nlines), Integer.parseInt(f1_nlines));
+		       
+		       porcentCopia = (count*100/(float) minLines);
+		   } else {
+			   porcentCopia = 100;
+		   }
+
 	       String resultado = "Alumnos/as " + dao.nombreAlumno(url1);
 	       resultado += " y " + dao.nombreAlumno(url2) + ":\n";
 	       
@@ -143,20 +151,6 @@ public class Comparador {
 	    	throw new RuntimeException(e);
 	    }
 	}
-	
-  /*  public static void main(String[] args) throws Exception {
-//
-		 List<String> urls = new ArrayList<String>();
-		 urls.add("https://gitlab.etsit.urjc.es/brosaa/P1");
-		 urls.add("https://gitlab.etsit.urjc.es/ja.ortega.2017/P1");
-//		 
-////		 if (args.length != 3) {
-////			 throw new Exception("Introduce las urls como argumentos");
-////		 }
-//
-		 hacerGitDiff(urls.get(0), urls.get(1));
-		
-    }*/
 
 }
 
