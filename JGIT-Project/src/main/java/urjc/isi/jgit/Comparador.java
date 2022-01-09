@@ -175,6 +175,7 @@ public class Comparador {
 	    	throw new RuntimeException(e);
 	    }
 	}
+
 	//comparamos el último commit hecho en 2 urls distintas
 	@SuppressWarnings("resource")
 	public String compararUltimoCommit (String url1, String url2){
