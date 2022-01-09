@@ -222,7 +222,8 @@ public class Comparador {
 		 urls.add("https://gitlab.etsit.urjc.es/brosaa/P1");
 		 urls.add("https://gitlab.etsit.urjc.es/ja.ortega.2017/P1");
 		 
-		 System.out.println(compNumCommit("https://gitlab.etsit.urjc.es/brosaa/P1", "https://gitlab.etsit.urjc.es/ja.ortega.2017/P1"));
+
+		 System.out.println(compNumCommit("https://gitlab.etsit.urjc.es/ja.ortega.2017/P1", "https://gitlab.etsit.urjc.es/brosaa/P1"));
 		 
 
 		 //hacerGitDiff(localDocs.get(0), localDocs.get(1));
