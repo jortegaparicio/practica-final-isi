@@ -7,6 +7,8 @@ import org.eclipse.jgit.api.Git;
 //import java.util.List;
 import java.io.*;
 import org.eclipse.jgit.diff.*;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
 import org.apache.commons.io.FileUtils;
 
 
@@ -114,6 +116,28 @@ public class Comparador {
 			 throw new RuntimeException(e);
 		 } 
 	 }
+	private static Repository clonarepo2(String remoteUrl) throws IOException { 
+
+		 File localPath;
+		
+		localPath = File.createTempFile("TestGitRepository", ""); 
+	
+		if(!localPath.delete()) { 
+			throw new IOException("Could not delete temporary file " + localPath); 
+		}
+
+		 try (Git result = Git.
+				 cloneRepository() 
+				 .setURI(remoteUrl)
+				 .setDirectory(localPath) 
+				 .call()) { 
+			 
+			 return result.getRepository();
+		 } catch (Exception e) {
+			 throw new RuntimeException(e);
+	
+	 } 
+	 }
 	
 	public String hacerGitDiff(String url1, String url2){
 
@@ -150,6 +174,42 @@ public class Comparador {
 	    } catch (IOException e) {
 	    	throw new RuntimeException(e);
 	    }
+	}
+	//comparamos el último commit hecho en 2 urls distintas
+	@SuppressWarnings("resource")
+	public String compararUltimoCommit (String url1, String url2){
+		try {
+			AppDao dao = new AppDao();
+			String nombre1= dao.nombreAlumno(url1);
+			String nombre2= dao.nombreAlumno(url2);
+			String resultado = new String();
+			
+			Repository localRepo1 = clonarepo2(url1);
+			Repository localRepo2 = clonarepo2(url2);
+			//seleccionamos el último commit de cada url
+			RevCommit latestCommitF1 = new Git(localRepo1).log().setMaxCount(1).call().iterator().next();
+			int latestCommitTime1 = latestCommitF1.getCommitTime();
+			
+			RevCommit latestCommitF2 = new Git(localRepo2).log().setMaxCount(1).call().iterator().next();
+			int latestCommitTime2 = latestCommitF2.getCommitTime();
+			
+			/*
+			 * En latestCommitTime tenemos el tiempo en segundos.
+			 * Ahora comparamos ambos - Vamos a estipular como media hora de diferencia el tiempo
+			 * para el que consideramos que es posible que haya copia
+			 */
+			if ((latestCommitTime1-latestCommitTime2 >=0 && latestCommitTime1-latestCommitTime2 <=1800)||
+					(latestCommitTime2-latestCommitTime1 >=0 && latestCommitTime2-latestCommitTime1 <=1800)) {
+					resultado = "Posible copia por último commit entre " +nombre1 +" y " 
+					+ nombre2 +", no se diferencian en media hora \n";
+			}else {
+					resultado = "No hay indicios de copia entre " + nombre1 + " y "+ nombre2+
+						", tiempo entre commits mayor de 30 minutos \n";
+			}
+			return resultado;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

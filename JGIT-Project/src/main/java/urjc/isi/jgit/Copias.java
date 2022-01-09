@@ -62,8 +62,7 @@ public class Copias {
 						
 						// Llamamos a los métodos de comparación de la clase comparador (programados con JGit)
 						resultado = comparador.hacerGitDiff(urls_filtradas.get(i), urls_filtradas.get(j));
-						//System.out.println(resultado);
-
+						resultado += comparador.compararUltimoCommit(urls_filtradas.get(i), urls_filtradas.get(j)); 
 						// Guardamos el resultado de la comparación entre dos prácticas en la BD
 						dao.saveResultado(new Resultado(urls_filtradas.get(i),urls_filtradas.get(j),nombre_practica,resultado));	
 					}
