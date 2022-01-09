@@ -18,22 +18,22 @@ public class CopiaTest {
 	 * Tests para probar la función hacerGitDiff del objeto comparador
 	 */
 
-	@Test
+	@Test //Dos prácticas iguales
 	public void hacerGitDiffTest_100copia() { //Dos prácticas iguales
 		String resultado = comparador.hacerGitDiff("https://gitlab.etsit.urjc.es/brosaa/P1", "https://gitlab.etsit.urjc.es/brosaa/P1");
 
 		assertTrue(resultado.contains("100.0%"));
 	}
 	
-	@Test
-	public void hacerGitDiffTest_0copia() { //Dos prácticas completamente distintas
+	@Test //Dos prácticas completamente distintas
+	public void hacerGitDiffTest_0copia() { 
 		String resultado = comparador.hacerGitDiff("https://gitlab.etsit.urjc.es/brosaa/P1", "https://gitlab.etsit.urjc.es/brosaa/P2");
 
 		assertTrue(resultado.contains("0.0%"));
 	}
 	
-	@Test
-	public void hacerGitDiffTest_porcentajecopia() { //Dos prácticas con partes similares
+	@Test //Dos prácticas con partes similares
+	public void hacerGitDiffTest_porcentajecopia() {
 		String resultado = comparador.hacerGitDiff("https://gitlab.etsit.urjc.es/brosaa/P2", "https://gitlab.etsit.urjc.es/ja.ortega.2017/P2");
 
 		assertFalse(resultado.contains("100.0%"));
@@ -41,12 +41,12 @@ public class CopiaTest {
 		assertTrue(resultado.contains("%"));
 	}
 	
-	@Test
+	@Test //Se identifica que se introduce un archivo vacío con 0 líneas y tiene 0% copia con un archivo normal
 	public void hacerGitDiffTest_archivoVacio() { //Dos prácticas con partes similares
 		String resultado = comparador.hacerGitDiff("https://gitlab.etsit.urjc.es/brosaa/P2", "https://gitlab.etsit.urjc.es/brosaa/P3");
 
-		assertTrue(resultado.contains("0 líneas"));
 		assertTrue(resultado.contains("0.0%"));
+		assertTrue(resultado.contains("0 líneas"));
 	}
 	
 	/**
