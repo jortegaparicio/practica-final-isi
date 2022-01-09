@@ -206,7 +206,7 @@ public class Comparador {
 	
 	public String compNumCommit(String url1, String url2) {
 		try { 
-			File localRepo1 = clonarepo(url1);
+			File localRepo1 = clonarepo(url1); 
 			File localRepo2 = clonarepo(url2);
 			return umbralNumCommit(localRepo1.toString(), url1, localRepo2.toString(), url2);
 	    } catch (IOException e) {
