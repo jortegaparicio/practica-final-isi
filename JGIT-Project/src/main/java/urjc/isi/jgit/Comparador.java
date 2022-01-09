@@ -176,9 +176,7 @@ public class Comparador {
 			e.printStackTrace();
 		}
 		 return res;
-		 
 	}
-	
 
 	/**
 	 * Este metodo devuelve el directorio con mas copias en caso de que supere el umbral de copias. "No hay suficiente diferencia de commit entre los repositorios".
@@ -215,20 +213,6 @@ public class Comparador {
 	    	throw new RuntimeException(e);
 	    }
 	}
-	/*
-    public static void main(String[] args) throws Exception {
-
-		 List<String> urls = new ArrayList<String>();
-		 urls.add("https://gitlab.etsit.urjc.es/brosaa/P1");
-		 urls.add("https://gitlab.etsit.urjc.es/ja.ortega.2017/P1");
-		 
-
-		 System.out.println(compNumCommit("https://gitlab.etsit.urjc.es/ja.ortega.2017/P1", "https://gitlab.etsit.urjc.es/brosaa/P1"));
-		 
-
-		 //hacerGitDiff(localDocs.get(0), localDocs.get(1));
-		
-    }*/
 
 }
 
