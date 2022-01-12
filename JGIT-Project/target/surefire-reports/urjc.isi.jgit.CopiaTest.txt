@@ -1,6 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: urjc.isi.jgit.CopiaTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 7, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 6.349 sec <<< FAILURE!
 hacerGitDiffTest_100copia(urjc.isi.jgit.CopiaTest)  Time elapsed: 0.686 sec  <<< ERROR!
 java.lang.RuntimeException: java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
@@ -44,3 +45,6 @@ Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for l
 	at urjc.isi.jgit.Comparador.resultadosCopia(Comparador.java:31)
 	... 35 more
 
+=======
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.453 sec
+>>>>>>> 497d40d767864c573b766f008996a048a9791f60
