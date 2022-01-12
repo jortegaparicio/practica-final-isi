@@ -1,4 +1,3 @@
-
 package urjc.isi.jgit;
 
 import org.eclipse.jgit.api.Git;
@@ -12,10 +11,7 @@ import java.util.List;
 import org.eclipse.jgit.diff.*;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
-<<<<<<< HEAD
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-=======
->>>>>>> 497d40d767864c573b766f008996a048a9791f60
 import org.apache.commons.io.FileUtils;
 
 
