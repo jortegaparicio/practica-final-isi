@@ -217,8 +217,6 @@ public class Comparador {
 			throw new RuntimeException(e);
 		}
 	}
-<<<<<<< HEAD
-
 
 	/**
 	 * Devuelve el numero de commits de un repositorio
@@ -281,8 +279,6 @@ public class Comparador {
 	    	throw new RuntimeException(e);
 	    }
 	}
-=======
->>>>>>> 497d40d767864c573b766f008996a048a9791f60
 
 }
 
