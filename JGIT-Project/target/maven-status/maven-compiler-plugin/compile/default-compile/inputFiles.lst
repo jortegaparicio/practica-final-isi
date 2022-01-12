@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+/home/usuario/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Comparador.java
+/home/usuario/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/AppDao.java
+/home/usuario/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Alumno.java
+/home/usuario/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Practica.java
+/home/usuario/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Informe.java
+/home/usuario/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Resultado.java
+/home/usuario/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Copias.java
+=======
 /home/alumno/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Comparador.java
 /home/alumno/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Practica.java
 /home/alumno/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Resultado.java
@@ -5,3 +14,4 @@
 /home/alumno/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/AppDao.java
 /home/alumno/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Informe.java
 /home/alumno/Escritorio/practica-final/JGIT-Project/src/main/java/urjc/isi/jgit/Copias.java
+>>>>>>> 497d40d767864c573b766f008996a048a9791f60

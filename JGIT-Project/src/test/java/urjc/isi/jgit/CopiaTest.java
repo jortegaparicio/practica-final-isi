@@ -60,5 +60,29 @@ public class CopiaTest {
 	 * Tests para probar la función umbralNumCommit del objeto comparador
 	 */
 	
+<<<<<<< HEAD
+	@Test // Dos repos con commits que no llegan al umbral
+	public void umbralNumCommit_noSuperaUmbral() {
+		String resultado = comparador.compNumCommit("https://gitlab.etsit.urjc.es/ja.ortega.2017/P2", "https://gitlab.etsit.urjc.es/ja.ortega.2017/P2");
+
+		assertTrue(resultado.contains("No hay suficiente diferencia"));
+	}	
+	
+	@Test // Dos repos con commits en el que el primero tiene más commits que el segundo y sobrepasa el umbral
+	public void umbralNumCommit_SuperaUmbral1() { 
+		String resultado = comparador.compNumCommit("https://gitlab.etsit.urjc.es/brosaa/P1", "https://gitlab.etsit.urjc.es/ja.ortega.2017/P1");
+		assertTrue(resultado.contains("commit(s) más que"));
+
+	}	
+	
+	@Test // Dos repos con commits en el que el segundo tiene más commits que el primero y sobrepasa el umbral
+	public void umbralNumCommit_SuperaUmbral2() {
+		String resultado = comparador.compNumCommit("https://gitlab.etsit.urjc.es/ja.ortega.2017/P1", "https://gitlab.etsit.urjc.es/brosaa/P1");
+		assertTrue(resultado.contains("commit(s) más que"));
+	}	
+	
+	
+=======
+>>>>>>> 497d40d767864c573b766f008996a048a9791f60
 	
 }

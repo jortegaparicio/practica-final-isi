@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
+Built-By: usuario
+Build-Jdk: 11.0.13
+=======
 Built-By: pablobv
 Build-Jdk: 11.0.11
+>>>>>>> 497d40d767864c573b766f008996a048a9791f60
 Created-By: Maven Integration for Eclipse
 
