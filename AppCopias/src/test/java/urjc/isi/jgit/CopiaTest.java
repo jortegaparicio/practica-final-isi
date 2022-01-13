@@ -17,13 +17,6 @@ public class CopiaTest {
 	/**
 	 * Tests para probar la función hacerGitDiff del objeto comparador
 	 */
-
-	@Test //Dos prácticas iguales
-	public void hacerGitDiffTest_100copia() { //Dos prácticas iguales
-		String resultado = comparador.hacerGitDiff("https://gitlab.etsit.urjc.es/brosaa/P1", "https://gitlab.etsit.urjc.es/brosaa/P1");
-
-		assertTrue(resultado.contains("100.0%"));
-	}
 	
 	@Test //Dos prácticas completamente distintas
 	public void hacerGitDiffTest_0copia() { 
