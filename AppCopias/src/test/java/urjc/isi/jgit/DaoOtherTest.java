@@ -13,7 +13,6 @@ public class DaoOtherTest {
 	@BeforeClass
 	public static void InitDao() {
 		dao = new AppDao();
-		dao.resetDatabase();
 	}
 
 	/**
@@ -37,17 +36,6 @@ public class DaoOtherTest {
 	}
 
 	@Test
-	public void getContenidoInformeTest() {
-
-		String nombre_practica = "P1";
-
-		Informe new_informe = new Informe("P1","Contenido del informe");		
-		dao.saveInforme(new_informe);
-		assertNotEquals("", dao.getContenidoInforme(nombre_practica));
-
-	}
-
-	@Test
 	public void practicasDisponiblesTest() {
 		
 		List<String> practicas = dao.practicasDisponibles();
@@ -67,19 +55,5 @@ public class DaoOtherTest {
 		}
 		
 		assertTrue(dao.informesDisponibles().contains(inf));
-	}
-
-	@Test
-	public void generarResultadosTest() {
-		Resultado new_resultado = new Resultado("http://gitlab.com/laugon/P1","http://gitlab.com/pacfer/P1","P1","contenido de la comparación entre la P1 de laura y paco");
-		dao.saveResultado(new_resultado);
-		
-		Resultado new_resultado_2 = new Resultado("http://gitlab.com/laugon/P2","http://gitlab.com/pacfer/P2","P2","contenido de la comparación entre la P2 de laura y paco");
-		dao.saveResultado(new_resultado_2);
-		
-		Resultado new_resultado_3 = new Resultado("http://gitlab.com/laugon/P2","http://gitlab.com/pepe99/P2","P2","contenido de la comparación entre la P2 de laura y Pepe");
-		dao.saveResultado(new_resultado_3);
-
-		assertEquals("[contenido de la comparación entre la P2 de laura y paco, contenido de la comparación entre la P2 de laura y Pepe]", dao.generarResultados("P2").toString());
 	}
 }
