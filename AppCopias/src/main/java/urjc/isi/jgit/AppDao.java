@@ -54,14 +54,23 @@ public class AppDao {
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('26237769H','Belén Rosa','brosaa')").execute();
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('46239069U','Juan Antonio Ortega','ja.ortega.2017')").execute();
 	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('95639423Y','César Borao','c.borao.2017')").execute();
+	        c.prepareStatement("INSERT INTO Alumnos(dni, nombre, usuario_Git) VALUES ('67883426J','Pablo Barquero','pablobv')").execute();
 	        
 	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P1','https://gitlab.etsit.urjc.es/brosaa/P1')").execute();
 	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','P2','https://gitlab.etsit.urjc.es/brosaa/P2')").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('26237769H','youtube-parser','https://gitlab.etsit.urjc.es/brosaa/youtube-parser')").execute();
 	        
 	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P1','https://gitlab.etsit.urjc.es/ja.ortega.2017/P1')").execute();
 	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','P2','https://gitlab.etsit.urjc.es/ja.ortega.2017/P2')").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('46239069U','youtube-parser','https://gitlab.etsit.urjc.es/ja.ortega.2017/youtube-parser')").execute();
 	        
 	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('95639423Y','P1','https://gitlab.etsit.urjc.es/c.borao.2017/P1')").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('95639423Y','P2','https://gitlab.etsit.urjc.es/c.borao.2017/P2')").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('95639423Y','youtube-parser','https://gitlab.etsit.urjc.es/c.borao.2017/youtube-parser')").execute();
+	        
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('67883426J','P1','https://gitlab.etsit.urjc.es/pablobv/P1')").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('67883426J','P2','https://gitlab.etsit.urjc.es/pablobv/P2')").execute();
+	        c.prepareStatement("INSERT INTO Practicas(dni, nombre, url) VALUES ('67883426J','youtube-parser','https://gitlab.etsit.urjc.es/pablobv/youtube-parser')").execute();
 	              
 	        c.commit();
         
