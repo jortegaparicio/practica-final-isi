@@ -74,22 +74,26 @@ public class Comparador {
 	   }
 	}
 
-	private static String obtenerFicheroTXT(File f) {
+	private static String obtenerFichero(File f, String url) {
 		
 		FileFilter filter;
 		File[] files;
 		
 		try {
+			String [] names = url.split("/");
+			String practica = names[names.length - 1] + ".";
+			
+			
 			filter = new FileFilter() {
 				 public boolean accept(File f) {
-					 return f.getName().endsWith("txt");
+					 return f.getName().startsWith(practica);
 				 }
 			 };
 			 
 			 files = f.listFiles(filter);
 
 			 if (files.length != 1){
-				 System.out.println("Solo debe haber un archivo con extensión .txt");
+				 System.out.println("Solo debe haber un archivo con el nombre " + practica);
 			 }
 			 
 			 return files[0].getName();
@@ -150,8 +154,8 @@ public class Comparador {
 	    	File localRepo1 = clonarepo(url1);
 			File localRepo2 = clonarepo(url2);
 			
-			File f1 = new File(localRepo1 + "/" + obtenerFicheroTXT(localRepo1));
-			File f2 = new File(localRepo2 + "/" + obtenerFicheroTXT(localRepo2));
+			File f1 = new File(localRepo1 + "/" + obtenerFichero(localRepo1, url1));
+			File f2 = new File(localRepo2 + "/" + obtenerFichero(localRepo2, url2));
 			
 			
 			OutputStream result = new ByteArrayOutputStream();
