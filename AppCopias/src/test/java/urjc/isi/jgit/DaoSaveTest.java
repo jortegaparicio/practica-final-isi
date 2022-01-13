@@ -12,10 +12,9 @@ public class DaoSaveTest {
 	public void saveTest() {
 
 		AppDao dao = new AppDao();
-		dao.resetDatabase();
 		
-		Informe new_informe = new Informe("P1","Contenido del Informe");
-		Resultado new_resultado = new Resultado("http://gitlab.com/laugon/P2","http://gitlab.com/pacfer/P2","P2","contenido de la comparación entre la P2 de laura y paco");
+		Informe new_informe = new Informe("P10","Contenido del Informe");
+		Resultado new_resultado = new Resultado("http://gitlab.com/laugon/P10","http://gitlab.com/pacfer/P10","P10","contenido de la comparación entre la P10 de laura y paco");
 		
 		dao.saveResultado(new_resultado);
 		dao.saveInforme(new_informe);
