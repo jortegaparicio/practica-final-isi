@@ -53,8 +53,17 @@ public class CopiaTest {
 	 * Tests para probar la función compararUltimoCommit del objeto comparador
 	 */
 	
-	
-	
+	@Test //Vemos que el tiempo entr el último commit de belen y Pablo es superior a 30 minutos y sale el mensaje correspondiente
+	public void compararUltimoCommitNoCopia() {
+		String resultado = comparador.compararUltimoCommit("https://gitlab.etsit.urjc.es/brosaa/P2", "https://gitlab.etsit.urjc.es/pablobv/P2");
+		assertTrue(resultado.contains("tiempo entre commits mayor de 30 minutos"));
+	}
+
+	@Test //Comprobamos que el tiempo entre el último commit de cesar y pablo es inferior a 30 minutos-> sale el mensaje de posible copia
+	public void compararUltimoCommitCopia() {
+		String resultado = comparador.compararUltimoCommit("https://gitlab.etsit.urjc.es/c.borao.2017/P2", "https://gitlab.etsit.urjc.es/pablobv/P2");
+		assertTrue(resultado.contains("no se diferencian en media hora"));
+	}
 	
 	/**
 	 * Tests para probar la función umbralNumCommit del objeto comparador
