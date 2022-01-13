@@ -43,23 +43,17 @@ public class DaoAllTest {
 	@Test
 	public void allResultadosTest() {
 		
-		Resultado result = new Resultado("https://gitlab.etsit.urjc.es/brosaa/P1","https://gitlab.etsit.urjc.es/c.borao.2017/P1","P1","contenido de la comparación entre la P1 de brosaa y c.borao.2017");
-		dao.saveResultado(result);
 		List<Resultado> resultados = dao.allResultados();
 		
-		assertTrue(resultados.contains(result));
+		assertTrue(resultados.toString().equals("[]"));
 		
 	}
 
 	@Test
 	public void allInformesTest() {
-
-		Informe inf = new Informe("P1","Contenido del informe de comparación de copias");
-		dao.saveInforme(inf);
-		
 		List<Informe> informes = dao.allInformes();
 		
-		assertTrue(informes.contains(inf));
+		assertTrue(informes.toString().equals("[]"));
 		
 	}
 }

@@ -43,7 +43,7 @@ public class DaoOtherTest {
 
 		Informe new_informe = new Informe("P1","Contenido del informe");		
 		dao.saveInforme(new_informe);
-		assertNotEquals("", dao.getContenidoInforme(nombre_practica));
+		assertEquals("Contenido del informe", dao.getContenidoInforme(nombre_practica));
 
 	}
 
