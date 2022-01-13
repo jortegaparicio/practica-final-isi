@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
-//import java.util.List;
+import java.util.List;
 
 public class DaoOtherTest {
 
@@ -23,8 +23,10 @@ public class DaoOtherTest {
 	public void urlsFiltradasTest() {
 
 		String nombre_practica = "P1";
-		assertEquals("[https://gitlab.etsit.urjc.es/brosaa/P1, "
-				+ "https://gitlab.etsit.urjc.es/ja.ortega.2017/P1, https://gitlab.etsit.urjc.es/c.borao.2017/P1]", dao.urlsFiltradas(nombre_practica).toString());
+		List<String> filtradas = dao.urlsFiltradas(nombre_practica);
+		
+		assertTrue(filtradas.contains("https://gitlab.etsit.urjc.es/brosaa/P1"));
+	
 	}
 
 	@Test
@@ -47,14 +49,24 @@ public class DaoOtherTest {
 
 	@Test
 	public void practicasDisponiblesTest() {
-		assertEquals("[P1, P2]", dao.practicasDisponibles().toString());
+		
+		List<String> practicas = dao.practicasDisponibles();
+		
+		assertTrue(practicas.contains("P1"));
+		assertTrue(practicas.contains("P2"));
+		assertTrue(practicas.contains("youtube-parser"));
 	}
 
 	@Test
 	public void informesDisponiblesTest() {
 
-		dao.saveInforme(new Informe("P2","Contenido del informe de la practica 2"));
-		assertTrue(!dao.informesDisponibles().isEmpty());
+		String inf = "P2";
+		
+		if(!dao.informesDisponibles().contains(inf)) {
+			dao.saveInforme(new Informe("P2","Contenido del informe de la practica 2"));
+		}
+		
+		assertTrue(dao.informesDisponibles().contains(inf));
 	}
 
 	@Test
