@@ -13,7 +13,6 @@ public class DaoAllTest {
 	@BeforeClass
 	public static void InitDao() {
 		dao = new AppDao();
-		dao.resetDatabase();
 	}
 
 	/**
