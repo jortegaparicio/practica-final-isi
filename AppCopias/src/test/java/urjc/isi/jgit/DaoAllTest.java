@@ -45,7 +45,7 @@ public class DaoAllTest {
 		List<Resultado> resultados = dao.allResultados();
 		
 		if (resultados.size() == 0) {
-			assertTrue(true);
+			assertTrue(resultados.toString().equals("[]"));
 		} else {
 			assertTrue(resultados.get(0).getPractica().toString().equals("P2") 
 					|| resultados.get(0).getPractica().toString().equals("P1") 
@@ -59,7 +59,7 @@ public class DaoAllTest {
 		List<Informe> informes = dao.allInformes();
 		
 		if (informes.size() == 0) {
-			assertTrue(true);
+			assertTrue(informes.toString().equals("[]"));
 		} else {
 			assertTrue(informes.get(0).getNombre().toString().equals("P2") 
 					|| informes.get(0).getNombre().toString().equals("P1") 
