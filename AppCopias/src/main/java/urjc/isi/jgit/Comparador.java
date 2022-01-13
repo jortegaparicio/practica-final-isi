@@ -34,7 +34,6 @@ public class Comparador {
 		   
 		   if  (gitDiffOutput.length() != 0) {
 			   String lines = gitDiffOutput.split("@@")[1];
-		       
 		       String[] partsF = lines.split(",");
 		       
 		       f1_nlines = partsF[1].split(" ")[0];

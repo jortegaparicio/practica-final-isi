@@ -60,10 +60,21 @@ public class CopiaTest {
 	 * Tests para probar la función umbralNumCommit del objeto comparador
 	 */
 	
-	@Test // Dos repos con commits que no llegan al umbral
-	public void umbralNumCommit_noSuperaUmbral() {
-		String resultado = comparador.compNumCommit("https://gitlab.etsit.urjc.es/ja.ortega.2017/P2", "https://gitlab.etsit.urjc.es/ja.ortega.2017/P2");
-
+	@Test // Dos repos con commits que no llegan al umbral y tiene el mismo numero de commits
+	public void umbralNumCommit_NoSuperaUmbral() {
+		String resultado = comparador.compNumCommit("https://gitlab.etsit.urjc.es/ja.ortega.2017/P1", "https://gitlab.etsit.urjc.es/ja.ortega.2017/P1");
+		assertTrue(resultado.contains("No hay suficiente diferencia"));
+	}	
+	
+	@Test // Dos repos con commits en el que el segundo tiene más commits que el primero y no sobrepasa el umbral
+	public void umbralNumCommit_NoSuperaUmbral1() {
+		String resultado = comparador.compNumCommit("https://gitlab.etsit.urjc.es/pablobv/P1", "https://gitlab.etsit.urjc.es/c.borao.2017/P1");
+		assertTrue(resultado.contains("No hay suficiente diferencia"));
+	}	
+	
+	@Test // Dos repos con commits en el que el primero tiene más commits que el segundo y no sobrepasa el umbral
+	public void umbralNumCommit_NoSuperaUmbral2() {
+		String resultado = comparador.compNumCommit("https://gitlab.etsit.urjc.es/c.borao.2017/P1", "https://gitlab.etsit.urjc.es/pablobv/P1");
 		assertTrue(resultado.contains("No hay suficiente diferencia"));
 	}	
 	
@@ -71,7 +82,6 @@ public class CopiaTest {
 	public void umbralNumCommit_SuperaUmbral1() { 
 		String resultado = comparador.compNumCommit("https://gitlab.etsit.urjc.es/brosaa/P1", "https://gitlab.etsit.urjc.es/ja.ortega.2017/P1");
 		assertTrue(resultado.contains("commit(s) más que"));
-
 	}	
 	
 	@Test // Dos repos con commits en el que el segundo tiene más commits que el primero y sobrepasa el umbral
@@ -80,6 +90,7 @@ public class CopiaTest {
 		assertTrue(resultado.contains("commit(s) más que"));
 	}	
 	
+
 	
 	
 }
