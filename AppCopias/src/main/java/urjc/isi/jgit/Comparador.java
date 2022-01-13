@@ -262,15 +262,15 @@ public class Comparador {
 
 		
 		if (diff > UMBRAL_COPIA_COMMIT) {
-			return dao.nombreAlumno(url1) + " ha hecho " + diff + " commit(s) más que " + dao.nombreAlumno(url2);
+			return dao.nombreAlumno(url1) + " ha hecho " + diff + " commit(s) más que " + dao.nombreAlumno(url2) + "\n";
 		}
 		
 		diff = ncommit2 - ncommit1;
 		
 		if (diff > UMBRAL_COPIA_COMMIT) {
-			return dao.nombreAlumno(url2) + " ha hecho " + diff + " commit(s) más que " + dao.nombreAlumno(url1);
+			return dao.nombreAlumno(url2) + " ha hecho " + diff + " commit(s) más que " + dao.nombreAlumno(url1) + "\n";
 		}
-		return "No hay suficiente diferencia de commit entre los repositorios de los alumnos " + dao.nombreAlumno(url1) + " y " + dao.nombreAlumno(url2);
+		return "No hay suficiente diferencia de commit entre los repositorios de los alumnos " + dao.nombreAlumno(url1) + " y " + dao.nombreAlumno(url2) + "\n";
 		
 	}
 	

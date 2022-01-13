@@ -61,8 +61,8 @@ public class Copias {
 						String resultado;
 						
 						// Llamamos a los métodos de comparación de la clase comparador (programados con JGit)
-						resultado = comparador.hacerGitDiff(urls_filtradas.get(i), urls_filtradas.get(j)) + comparador.compNumCommit(urls_filtradas.get(i), urls_filtradas.get(j)) + "\n";
-
+						resultado = comparador.hacerGitDiff(urls_filtradas.get(i), urls_filtradas.get(j)); 
+						resultado += comparador.compNumCommit(urls_filtradas.get(i), urls_filtradas.get(j));
 						resultado += comparador.compararUltimoCommit(urls_filtradas.get(i), urls_filtradas.get(j)); 
 						//System.out.println(resultado);
 
